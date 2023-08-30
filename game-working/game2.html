@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <h1>Matching Initials with picture</h1>
+    <p>Drag the initial of the given image over to the imagse</p>
+
+    <main class="container">
+      <div>
+        <ul class="draggable-list">
+          <li id="e1" draggable="true">H</li>
+          <li id="e2" draggable="true">F</li>
+          <li id="e3" draggable="true">G</li>
+          <li id="e4" draggable="true">I</li>
+          <li id="e5" draggable="true">K</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="draggable-list">
+          <li id="s2" draggable="true"><img src="images/flower.jpeg" /></li>
+          <li id="s5" draggable="true"><img src="images/kites.png" /></li>
+          <li id="s1" draggable="true"><img src="images/hat.png" /></li>
+          <li id="s3" draggable="true"><img src="images/giraffe.jpg" /></li>
+          <li id="s4" draggable="true"><img src="images/ice-cream.jpg" /></li>
+        </ul>
+      </div>
+    </main>
+
+    <div id="endMessage">
+      <h3>Well done!</h3>
+
+      <table>
+        <tr>
+          <th>Alphabet</th>
+          <th>Picture</th>
+        </tr>
+        <tr>
+          <td>F</td>
+          <td><img src="images/flower.jpeg" /></td>
+        </tr>
+        <tr>
+          <td>K</td>
+          <td><img src="images/kites.png" /></td>
+        </tr>
+        <tr>
+          <td>H</td>
+          <td><img src="images/hat.png" /></td>
+        </tr>
+        <tr>
+          <td>G</td>
+          <td><img src="images/giraffe.jpg" /></td>
+        </tr>
+        <tr>
+          <td>I</td>
+          <td><img src="images/ice-cream.jpg" /></td>
+        </tr>
+      </table>
+
+      <button onclick="playAgain()">Play Again</button>
+    </div>
+
+    <script src="script-new.js"></script>
+  </body>
+</html>

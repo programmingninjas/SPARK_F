@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Picture Recognition Game</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Vina+Sans&display=swap");
+    </style>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ffdbe9, #b9b6e5);
+        margin: 0;
+        padding: 20px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      h1 {
+        font-size: 100px;
+        text-align: center;
+        font-weight: 900;
+        color: #884a39;
+        font-family: "Vina Sans", cursive;
+        letter-spacing: 5px;
+        margin-bottom: 40px;
+      }
+
+      #start-button {
+        background-color: #ff4b4b;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        padding: 14px 28px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #start-button:hover {
+        background-color: #ff3333;
+      }
+
+      .animated-character {
+        width: 500px;
+        height: 500px;
+        margin-top: 40px;
+        animation: bounce 1s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Picture Recognition Game</h1>
+    <button id="start-button">Start</button>
+    <img
+      class="animated-character"
+      src="Vowels-amico.png"
+      alt="Animated Character"
+    />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const startButton = document.getElementById("start-button");
+
+        // Start Button Event Listener
+        startButton.addEventListener("click", function () {
+          // Redirect to the level page
+          window.location.href = "level.html";
+        });
+      });
+    </script>
+  </body>
+</html>

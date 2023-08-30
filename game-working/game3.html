@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <h1>Matching Initials with picture</h1>
+    <p>Drag the initial of the given image over to the imagse</p>
+
+    <main class="container">
+      <div>
+        <ul class="draggable-list">
+          <li id="e1" draggable="true">P</li>
+          <li id="e2" draggable="true">M</li>
+          <li id="e3" draggable="true">L</li>
+          <li id="e4" draggable="true">N</li>
+          <li id="e5" draggable="true">O</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="draggable-list">
+          <li id="s2" draggable="true"><img src="images/monkey.jpg" /></li>
+          <li id="s5" draggable="true"><img src="images/oranges.jpg" /></li>
+          <li id="s1" draggable="true"><img src="images/penguin.jpg" /></li>
+          <li id="s3" draggable="true"><img src="images/lion.jpg" /></li>
+          <li id="s4" draggable="true"><img src="images/nest.jpg" /></li>
+        </ul>
+      </div>
+    </main>
+
+    <div id="endMessage">
+      <h3>Well done!</h3>
+
+      <table>
+        <tr>
+          <th>Alphabet</th>
+          <th>Picture</th>
+        </tr>
+        <tr>
+          <td>L</td>
+          <td><img src="images/lion.jpg" /></td>
+        </tr>
+        <tr>
+          <td>M</td>
+          <td><img src="images/monkey.jpg" /></td>
+        </tr>
+        <tr>
+          <td>N</td>
+          <td><img src="images/nest.jpg" /></td>
+        </tr>
+        <tr>
+          <td>O</td>
+          <td><img src="images/oranges.jpg" /></td>
+        </tr>
+        <tr>
+          <td>P</td>
+          <td><img src="images/penguin.jpg" /></td>
+        </tr>
+      </table>
+
+      <button onclick="playAgain()">Play Again</button>
+    </div>
+
+    <script src="script-new.js"></script>
+  </body>
+</html>

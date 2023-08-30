@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <h1>Matching Initials with picture</h1>
+    <p>Drag the initial of the given image over to the imagse</p>
+
+    <main class="container">
+      <div>
+        <ul class="draggable-list">
+          <li id="e1" draggable="true">C</li>
+          <li id="e2" draggable="true">A</li>
+          <li id="e3" draggable="true">E</li>
+          <li id="e4" draggable="true">B</li>
+          <li id="e5" draggable="true">D</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="draggable-list">
+          <li id="s2" draggable="true"><img src="images/apple.jpeg" /></li>
+          <li id="s5" draggable="true"><img src="images/dog.jpg" /></li>
+          <li id="s1" draggable="true"><img src="images/cat.jpeg" /></li>
+          <li id="s3" draggable="true"><img src="images/elephant.jpeg" /></li>
+          <li id="s4" draggable="true"><img src="images/burger.jpeg" /></li>
+        </ul>
+      </div>
+    </main>
+
+    <div id="endMessage">
+      <h3>Well done!</h3>
+
+      <table>
+        <tr>
+          <th>Alphabet</th>
+          <th>Picture</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td><img src="images/apple.jpeg" /></td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td><img src="images/dog.jpg" /></td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td><img src="images/cat.jpeg" /></td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td><img src="images/elephant.jpeg" /></td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td><img src="images/burger.jpeg" /></td>
+        </tr>
+      </table>
+
+      <button onclick="playAgain()">Play Again</button>
+    </div>
+
+    <script src="script-new.js"></script>
+  </body>
+</html>

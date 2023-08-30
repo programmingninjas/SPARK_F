@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <h1>Matching Initials with picture</h1>
+    <p>Drag the initial of the given image over to the imagse</p>
+
+    <main class="container">
+      <div>
+        <ul class="draggable-list">
+          <li id="e1" draggable="true">T</li>
+          <li id="e2" draggable="true">R</li>
+          <li id="e3" draggable="true">Q</li>
+          <li id="e4" draggable="true">U</li>
+          <li id="e5" draggable="true">S</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="draggable-list">
+          <li id="s2" draggable="true"><img src="images/rose.jpg" /></li>
+          <li id="s5" draggable="true"><img src="images/sheep.jpg" /></li>
+          <li id="s1" draggable="true"><img src="images/turtle.jpg" /></li>
+          <li id="s3" draggable="true">
+            <img src="images/question-mark.jpg" />
+          </li>
+          <li id="s4" draggable="true"><img src="images/umbrella.jpg" /></li>
+        </ul>
+      </div>
+    </main>
+
+    <div id="endMessage">
+      <h3>Well done!</h3>
+
+      <table>
+        <tr>
+          <th>Alphabet</th>
+          <th>Picture</th>
+        </tr>
+        <tr>
+          <td>Q</td>
+          <td><img src="images/question-mark.jpg" /></td>
+        </tr>
+        <tr>
+          <td>R</td>
+          <td><img src="images/rose.jpg" /></td>
+        </tr>
+        <tr>
+          <td>S</td>
+          <td><img src="images/sheep.jpg" /></td>
+        </tr>
+        <tr>
+          <td>T</td>
+          <td><img src="images/turtle.jpg" /></td>
+        </tr>
+        <tr>
+          <td>U</td>
+          <td><img src="images/umbrella.jpg" /></td>
+        </tr>
+      </table>
+
+      <button onclick="playAgain()">Play Again</button>
+    </div>
+
+    <script src="script-new.js"></script>
+  </body>
+</html>
