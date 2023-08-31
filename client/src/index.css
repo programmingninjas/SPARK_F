@@ -12,3 +12,8 @@ body
 {
   @apply from-primary to-accent bg-gradient-to-r bg-clip-text text-transparent;
 }
+
+*
+{
+  /* outline: solid 2px red; */
+}
