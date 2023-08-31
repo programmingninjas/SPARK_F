@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body
+{
+  font-family: 'Instrument Sans', sans-serif;
+  @apply bg-light;
+  @apply text-dark;
+}
+.gradient-text
+{
+  @apply from-primary to-accent bg-gradient-to-r bg-clip-text text-transparent;
+}
