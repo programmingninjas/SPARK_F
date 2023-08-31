@@ -63,27 +63,27 @@ function App() {
         </section>
         <section className="py-48">
           <div className="flex flex-wrap gap-4 p-4">
-            <div className="bg-accent text-light grow p-16 rounded-lg flex flex-col items-center justify-center">
+            <div className="bg-accent shadow-accent/30 text-light grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <h1>Children are diagnosed with down syndrome</h1>
             </div>
-            <div className="bg-primary text-light grow p-16 rounded-lg flex flex-col items-center justify-center">
+            <div className="bg-primary shadow-primary/30 text-light grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <p>Children are diagnosed with down syndrome</p>
             </div>
-            <div className="bg-secondary grow p-16 rounded-lg flex flex-col items-center justify-cente">
+            <div className="bg-secondary shadow-secondary/30 grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-cente">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <p>Children are diagnosed with down syndrome</p>
             </div>
-            <div className="bg-accent text-light grow-[5] p-16 rounded-lg flex flex-col items-center justify-center">
+            <div className="bg-accent shadow-accent/30 text-light grow-[5] hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <p>Children are diagnosed with down syndrome</p>
             </div>
-            <div className="bg-primary text-light grow-[10] p-16 rounded-lg flex flex-col items-center justify-center">
+            <div className="bg-primary shadow-primary/30 text-light grow-[10] hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <p>Children are diagnosed with down syndrome</p>
             </div>
-            <div className="bg-secondary grow p-16 rounded-lg flex flex-col items-center justify-cente">
+            <div className="bg-secondary shadow-secondary/30 grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-cente">
               <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
               <p>Children are diagnosed with down syndrome</p>
             </div>

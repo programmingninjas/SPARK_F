@@ -17,3 +17,15 @@ body
 {
   /* outline: solid 2px red; */
 }
+
+.grow-anim
+{
+  animation: grow-anim 4s infinite;
+}
+@keyframes grow-anim {
+  0%{flex-grow: 1;}
+  25%{flex-grow: 8;}
+  50%{flex-grow: 16;}
+  50%{flex-grow: 8;}
+  100%{flex-grow: 1;}
+}
