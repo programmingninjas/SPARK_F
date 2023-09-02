@@ -11,7 +11,9 @@ export default {
       'accent':'#3f3399',
       'light':"#f4f4fb",
       'dark':"#0e0b22",
-      'transparent':"#ffffff00"
+      'transparent':"#ffffff00",
+      'white':"#ffffff",
+      'error':"#ff1111",
     },
     container: {
       padding: {
@@ -22,6 +24,12 @@ export default {
         '2xl': '6rem',
       },
     },
+    extend: {
+      width: {
+        '128': '32rem',
+        '160': '40rem',
+      }
+    }
   },
   plugins: [],
 }

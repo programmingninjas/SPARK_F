@@ -3,7 +3,8 @@ import { ReactNode } from "react";
 type ButtonPropsType = 
 {
     children?:ReactNode,
-    type:"outline" | "text" | "filled"
+    type:"outline" | "text" | "filled",
+    className?:string,
 }
 function Button(props:ButtonPropsType)
 {
@@ -14,7 +15,7 @@ function Button(props:ButtonPropsType)
     if(props.type == 'outline')style = 'border border-primary rounded-md text-primary';
 
     return (
-        <button className={`${style} hover:scale-105 font-medium text-xs px-4 py-2 md:text-sm md:px-6 md:py-3 lg:text-base lg:px-8 lg:py-4 active:scale-95 duration-200`}>
+        <button className={`${style} ${props.className} hover:scale-105 font-medium text-xs px-4 py-3 md:text-sm md:px-6 md:py-3 lg:text-base lg:px-8 lg:py-4 active:scale-95 duration-200`}>
             {props.children}
         </button>
     )
