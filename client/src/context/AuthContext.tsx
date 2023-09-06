@@ -1,8 +1,8 @@
-import React, { useState , useContext } from "react";
+import React, { useState , useContext, useEffect } from "react";
 import axios from '../axios';
+import { useNavigate } from "react-router-dom";
 
 type UserdataType = {
-    id:string,
     token:string,
     email:string,
     name:string,
@@ -35,8 +35,19 @@ export function useAuth()
 
 export function AuthProvier(props:{children:React.ReactNode})
 {
+    const navigator = useNavigate();
     const [isAuthorized,setIsAuthorized] = useState(false);
-    const [userdata,setUserdata] = useState<UserdataType>({id:"",name:"",token:"",email:""});
+    const [userdata,setUserdata] = useState<UserdataType>({name:"",token:"",email:""});
+
+    useEffect(()=>{
+        let local = localStorage.getItem("userdata");
+        if(local)
+        {
+            const userdata = JSON.parse(local);
+            setUserdata(userdata);
+            setIsAuthorized(true);
+        }
+    },[])
 
     const APIFunctions = {
         LogIn,
@@ -83,7 +94,8 @@ export function AuthProvier(props:{children:React.ReactNode})
             console.log(response);
             if(response.status == 201)
             {
-                alert("User Created");
+                alert("Account Created TODO Toast Here");
+                navigator('/login');
                 return true;
             }
         }
@@ -98,6 +110,7 @@ export function AuthProvier(props:{children:React.ReactNode})
         setUserdata(null);
         setIsAuthorized(false);
         localStorage.removeItem("userdata");
+        navigator('/');
     }
     async function GetRequest(url:string,sendToken:boolean,params?:any)
     {

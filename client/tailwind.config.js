@@ -13,7 +13,7 @@ export default {
       'dark':"#0e0b22",
       'transparent':"#ffffff00",
       'white':"#ffffff",
-      'error':"#ff1111",
+      'error':"#f04343",
     },
     container: {
       padding: {

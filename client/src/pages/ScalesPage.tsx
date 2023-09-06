@@ -1,0 +1,65 @@
+import  { useState } from 'react'
+import Button from '../components/common/Button'
+import Navbar from '../components/common/Navbar';
+
+function ScalesPage()
+{
+    const possibleAnswers = ["yes","no"] as const;
+    type answerType = typeof possibleAnswers[number] | undefined;
+    const [answers,setAnswers] = useState<answerType[]>([]);
+
+    const questions = [
+        "Reacts to sound occasionally ",
+        "Does not necessarily turn head toward sound source ",
+        "Does not necessarily watch face when parent speaks",
+        "Needs audiologic evaluation",
+        "Minimal vocalization (cries, fusses) ",
+        "Ceases sounds when talked too"
+    ]
+    
+    function setAnswer(index:number,value:answerType)
+    {
+        setAnswers(prev=>{
+            prev[index] = value;
+            return [...prev];
+        })
+    }
+
+    return (
+        <>
+            <Navbar/>
+            <div className="max-w-4xl mx-auto">
+                <section className="flex mt-8 flex-wrap md:flex-nowrap">
+                    <div className="w-full p-8 lg:p-16">
+                        <h1 className="text-3xl md:text-5xl font-medium">Lorem Ipsum <span className="gradient-text">Spark</span> <br/> Illum, <span className="gradient-text">assumenda!</span></h1>
+                        <p className="mt-8 text-md md:text-xl">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing?
+                        <br />
+                        Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
+                        </p>
+                    </div>
+                </section>
+                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                    {questions.map((value,index)=>{
+                        return(
+                            <div key={index} className='bg-light rounded-xl p-8'>
+                                <h1 className='text-xl'>{(index+1) + ". " +value}</h1>
+                                <div className="flex mt-4 gap-4 flex-col md:flex-row">
+                                    {possibleAnswers.map((value,index2)=>{
+                                        return <button key={index2} onClick={()=>{setAnswer(index,value)}} className={`capitalize hover:scale-105 active:scale-95 duration-200 grow p-2 rounded md:p-4 transition-all ${(answers[index] == value)?"bg-primary text-white":"text-primary outline outline-1 outline-primary"}`}>{value}</button>
+                                    })}
+                                </div>
+                            </div>
+                        )
+                    })}
+                    <div className='bg-light rounded-xl p-8 flex gap-4'>
+                        <Button className='grow' type='filled'>Submit</Button>
+                        <Button onClick={()=>{setAnswers([])}} className='grow' type='outline'>Reset</Button>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default ScalesPage
