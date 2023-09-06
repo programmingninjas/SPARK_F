@@ -2,8 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import { FormEvent, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
-function LoginPage() {
+function LoginPage()
+{
+  const auth = useAuth();
+  const navigator = useNavigate();
   const [email, setEmail] = useState<InputState>({ value: "", hasError: false });
   const [password, setPassword] = useState<InputState>({ value: "", hasError: false });
 
@@ -17,8 +21,19 @@ function LoginPage() {
       setEmail((prev) => ({ ...prev, hasError: true }));
       hasError = true;
     }
-
+    if(!password.value.match(/[\S\s]+[\S]+/))
+    {
+      setPassword((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+    
     if (hasError) return;
+
+    let response = await auth?.APIFunctions.LogIn(email.value,password.value);
+    if(response)
+    {
+      navigator('/dashboard');
+    }
   }
 
   return (

@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import { FormEvent, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function SignupPage()
 {
+  const auth = useAuth();
   const [name,setName] = useState<InputState>({ value: "", hasError: false });
   const [email, setEmail] = useState<InputState>({ value: "", hasError: false });
   const [password, setPassword] = useState<InputState>({ value: "", hasError: false });
@@ -22,7 +24,37 @@ function SignupPage()
       hasError = true;
     }
 
+    if(!name.value.match(/[\S\s]+[\S]+/))
+    {
+      setName((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+    if(!password.value.match(/[\S\s]+[\S]+/))
+    {
+      setPassword((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+    if(!confirmPassword.value.match(/[\S\s]+[\S]+/))
+    {
+      setConfirmPassword((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+    if(!dob.value.match(/[\S\s]+[\S]+/))
+    {
+      setDob((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+
+    if(confirmPassword.value != password.value)
+    {
+      setPassword((prev)=>({...prev,hasError:true}));
+      setConfirmPassword((prev)=>({...prev,hasError:true}));
+      hasError = true;
+    }
+
     if (hasError) return;
+
+    auth?.APIFunctions.SignUp(email.value,password.value,name.value,dob.value);
   }
 
   return (
@@ -36,8 +68,8 @@ function SignupPage()
           <Input
             className="grow"
             placeholder="Enter Full Name"
-            value={email.value}
-            hasError={email.hasError}
+            value={name.value}
+            hasError={name.hasError}
             onChange={(e) => setName({ value: e.target.value, hasError: false })}
             type="text"
             label="Full Name"
