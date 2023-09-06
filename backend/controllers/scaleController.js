@@ -3,12 +3,12 @@ const Scale = require("../models/scaleModel")
 const ScaleResults = require("../models/scaleResults")
 
 // @desc  Get scale
-// @route Get /api/scale
+// @route Get /api/scale/:month
 // @access Public
 
 const getScales = asyncHandler( async (req,res) => {
     const scales = await Scale.find()
-    res.status(200).json(scales[0][req.body.months])
+    res.status(200).json(scales[0][req.params['month']])
 })
 // @desc  Set scale
 // @route Post /api/scale
