@@ -5,6 +5,8 @@ import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
 import { AuthProvier, useAuth } from "./context/AuthContext";
 import ScalesPage from "./pages/ScalesPage";
+import ThreeDText from "./pages/ThreeDText";
+import Detection from "./pages/Detection";
 
 function App()
 {
@@ -17,6 +19,8 @@ function App()
             <Route path="/*" element={<LandingPage/>}/>
             <Route path="/dashboard" element={<DashboardPage/>} />
             <Route path="/scales" element={<ScalesPage/>} />
+            <Route path="/3dtext" element={<ThreeDText/>} />
+            <Route path="/detection" element={<Detection/>} />
           </Routes>
         ):(
           <Routes>

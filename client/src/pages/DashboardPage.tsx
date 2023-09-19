@@ -14,6 +14,8 @@ function DashboardPage()
         <p className="break-words">{auth?.userdata?.token}<br /></p>
         <Button onClick={auth?.APIFunctions.SignOut} type="text">SIGN OUT</Button>
         <Link to='/scales'><Button type="text">Scales</Button></Link>
+        <Link to='/3dtext'><Button type="text">3D Text</Button></Link>
+        <Link to='/detection'><Button type="text">Detection</Button></Link>
       </div>
     </>
   )
