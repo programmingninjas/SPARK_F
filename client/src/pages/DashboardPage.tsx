@@ -3,6 +3,7 @@ import Button from "../components/common/Button"
 import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react";
 import Navbar from "../components/common/Navbar";
+import AreaMetric from "../components/AreaMetric";
 
 
 function DashboardPage()
@@ -26,8 +27,8 @@ function DashboardPage()
   return (
     <>
       <Navbar/>
-      <div className="container min-h-screen flex gap-2 flex-col md:flex-row">
-        <div className="w-96 h-full">
+      <div className="mx-auto container min-h-screen flex gap-2 flex-col md:flex-row">
+        <div className="w-full md:w-96 h-full md:sticky top-4">
           <div className="card bg-white">
             <div className="flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-24 h-24">
@@ -46,7 +47,15 @@ function DashboardPage()
           </div>
         </div>
         <div className="grow">
-          <div className="card bg-white">
+          <div className="flex flex-wrap gap-2">
+            <div className="card bg-white h-96 mt-2 grow">
+              <AreaMetric />
+            </div>
+            <div className="card bg-white h-96 mt-2 grow">
+              <AreaMetric />
+            </div>
+          </div>
+          <div className="card bg-white mt-2">
             <h1 className="font-semibold text-xl">Training Module or something</h1>
             <div className="flex mt-4 gap-2 flex-wrap">
               <Link to="/scales" className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
@@ -90,12 +99,6 @@ function DashboardPage()
             </div>
           </div>
         </div>
-        {/* <p>{auth?.userdata?.name}<br /></p>
-        <p>{auth?.userdata?.email}<br /></p>
-        <Button onClick={auth?.APIFunctions.SignOut} type="text">SIGN OUT</Button>
-        <Link to='/scales'><Button type="text">Scales</Button></Link>
-        <Link to='/3dtext'><Button type="text">3D Text</Button></Link>
-      <Link to='/detection'><Button type="text">Detection</Button></Link> */}
       </div>
       <p className="break-words">{auth?.userdata?.token}<br /></p>
     </>
