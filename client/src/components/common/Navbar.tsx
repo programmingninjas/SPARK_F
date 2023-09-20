@@ -1,18 +1,24 @@
 import { Link } from 'react-router-dom';
 import Button from './Button';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth} from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 function Navbar()
 {
     const auth = useAuth();
+    const location = useLocation();
 
     return (
         <nav className="md:container md:mx-auto flex justify-between p-8">
-            <div className="flex items-center">LOGO HERE</div>
+            <div className="flex items-center">PROJECT_SPARK</div>
             <div className="flex gap-1 md:gap-4">
                 {
                     auth?.isAuthorized?(
-                        <Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>
+                        (location.pathname == '/dashboard')?(
+                            <Link to='/'><Button type="filled">Landing</Button></Link>
+                        ):(
+                            <Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>
+                        )
                     ):(
                         <>
                             <Link to='/login'><Button type="text">LOGIN</Button></Link>

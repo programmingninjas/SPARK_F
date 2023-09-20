@@ -29,7 +29,10 @@ body
   50%{flex-grow: 8;}
   100%{flex-grow: 1;}
 }
-
+.card
+{
+  @apply p-4 rounded-xl shadow-lg;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }

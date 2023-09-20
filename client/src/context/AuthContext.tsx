@@ -119,7 +119,7 @@ export function AuthProvier(props:{children:React.ReactNode})
         {
             if(sendToken)
             {
-                response = await axios.get(url,{headers:{"x-access-token":userdata?.token},params:params})
+                response = await axios.get(url,{headers:{Authorization: `Bearer ${userdata?.token}`},params:params})
             }
             else
             {
@@ -140,7 +140,7 @@ export function AuthProvier(props:{children:React.ReactNode})
         {
             if(needsToken && isAuthorized)
             {
-                response = await axios.post(url,body,{headers:{"x-access-token":userdata?.token},params:params});
+                response = await axios.post(url,body,{headers:{Authorization: `Bearer ${userdata?.token}`},params:params});
             }
             else
             {

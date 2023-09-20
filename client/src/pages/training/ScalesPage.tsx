@@ -1,6 +1,6 @@
 import  { useState } from 'react'
-import Button from '../components/common/Button'
-import Navbar from '../components/common/Navbar';
+import Button from '../../components/common/Button'
+import Navbar from '../../components/common/Navbar';
 
 function ScalesPage()
 {

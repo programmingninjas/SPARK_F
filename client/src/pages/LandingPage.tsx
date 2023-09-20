@@ -1,8 +1,14 @@
+import { ContactShadows, Environment, Float, PresentationControls, useGLTF } from '@react-three/drei';
 import Button from '../components/common/Button';
 import Navbar from '../components/common/Navbar';
+import { Canvas } from '@react-three/fiber';
 
 function LandingPage()
 {
+
+  const char1 = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bookcase-wide/model.gltf');
+  const char2 = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/target-stand/model.gltf');
+
   return (
     <>
       <Navbar/>
@@ -21,7 +27,18 @@ function LandingPage()
                 <Button type="outline">Learn More</Button>
               </div>
             </div>
-            <div className="bg-secondary w-full">b</div>
+            <div className="w-full">
+              <Canvas camera={{ fov: 20, position: [4, 1, 6] }}>
+                <PresentationControls global rotation={[0,.3,0]} polar={[0,0]} azimuth={[-2,2]} config={{mass:2,tension:400}} snap={{mass:4,tension:400}}>
+                  <hemisphereLight groundColor={0x6457c7} color={0xffffff} intensity={2.5}/>
+                  <Environment preset="city" />
+                  <Float rotationIntensity={1.5} >
+                    <primitive object={char1.scene} scale={.8} position-y={-.5}/>
+                  </Float>
+                </PresentationControls>
+                <ContactShadows opacity={.4} scale={5} blur={2.4} position-y={-.7}/>
+              </Canvas>
+            </div>
           </section>
           <section className="flex mt-48 flex-wrap flex-row-reverse md:flex-nowrap">
             <div className="w-full p-8 lg:p-16 flex flex-col gap-48">
@@ -51,7 +68,18 @@ function LandingPage()
               </div>
             </div>
             <div className="w-full">
-              <div className="bg-accent h-96 sticky top-1/4">b</div>
+              <div className="h-96 sticky top-1/4">
+                <Canvas camera={{ fov: 20, position: [4, 1, 6] }}>
+                  <PresentationControls global rotation={[0,.3,0]} polar={[0,0]} azimuth={[-2,2]} config={{mass:2,tension:400}} snap={{mass:4,tension:400}}>
+                    <hemisphereLight groundColor={0x6457c7} color={0xffffff} intensity={2.5}/>
+                    <Environment preset="city" />
+                    <Float rotationIntensity={1} >
+                      <primitive object={char2.scene} scale={1} position-y={-.75}/>
+                    </Float>
+                  </PresentationControls>
+                  <ContactShadows opacity={.4} scale={5} blur={2.4} position-y={-0.9}/>
+                </Canvas>
+              </div>
             </div>
           </section>
           <section className="py-48">

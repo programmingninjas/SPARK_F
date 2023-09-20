@@ -5,7 +5,8 @@ type ButtonPropsType =
     children?:ReactNode,
     type:"outline" | "text" | "filled" | "filled-red",
     className?:string,
-    onClick?:React.MouseEventHandler<HTMLButtonElement>
+    onClick?:React.MouseEventHandler<HTMLButtonElement>,
+    disableScale?:boolean
 }
 function Button(props:ButtonPropsType)
 {
@@ -17,7 +18,7 @@ function Button(props:ButtonPropsType)
     if(props.type == 'outline')style = 'border border-primary rounded-md text-primary';
 
     return (
-        <button onClick={props.onClick} className={`${style} ${props.className} hover:scale-105 font-medium text-xs px-4 py-3 md:text-sm md:px-6 md:py-3 lg:text-base lg:px-8 lg:py-4 active:scale-95 duration-200`}>
+        <button onClick={props.onClick} className={`${style} ${props.className} ${props.disableScale?"":"hover:scale-105"} font-medium text-xs px-4 py-3 md:text-sm md:px-6 md:py-3 lg:text-base lg:px-8 lg:py-4 active:scale-95 duration-200`}>
             {props.children}
         </button>
     )
