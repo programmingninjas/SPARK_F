@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        progress[value] { 
+        -webkit-appearance: none;
+        appearance: none;
+        /* width: 250px; */
+        width: 100%;
+        height: 20px;
+        }
+        progress[value]::-webkit-progress-bar {
+        background-color: #eee;
+        border-radius: 2px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+        }
+        progress[value]::-webkit-progress-value {
+        background-image:
+            -webkit-linear-gradient(-45deg, 
+                                    transparent 33%, rgba(0, 0, 0, .1) 33%, 
+                                    rgba(0,0, 0, .1) 66%, transparent 66%),
+            -webkit-linear-gradient(top, 
+                                    rgba(255, 255, 255, .25), 
+                                    rgba(0, 0, 0, .25)),
+            -webkit-linear-gradient(left, #6457c7, #3f3399);
+
+            border-radius: 2px; 
+            background-size: 35px 20px, 100% 100%, 100% 100%;
+        }
+        *
+        {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            font-family: 'REM', sans-serif;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f4f6;
+        }
+        .card
+        {
+            box-shadow: 10px 10px 15px -3px rgba(0,0,0,0.1);
+            background-color: white;
+            padding: 1rem;
+            width: 250px;
+            display: flex;
+            gap:.1rem;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 1rem;
+        }
+        .card button
+        {
+            padding: .75rem;
+            border-radius: 1rem;
+            border:0;
+            background-color: #6457c7;
+            color: white;
+            font-weight: 700;
+            width: 100%;
+            transition: all 200ms ease-in-out;
+        }
+        .card.hidden button
+        {
+            padding: 0;
+            opacity: 0;
+        }
+        .card button:hover
+        {
+            filter: brightness(1.1);
+        }
+        .card button:active
+        {
+            transform: scale(.9);
+        }
+        #webcam-container div
+        {
+            height: 200px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="task"></div>
+        </br>
+        <button type="button" onclick="init()">START</button>
+        <div id="webcam-container">
+            <div>
+                
+            </div>
+        </div>
+        <div id="label-container"></div>
+        </br>
+        <progress id="prog" max="100" value="0"></progress>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.9.3/tsparticles.confetti.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/BxTGo760W/";
+
+    let tasks = ["A for ?","B for ?","C for ?","D for ?","E for ?","G for ?","H for ?","K for ?","L for ?","M for ?","O for ?","P for ?","S for ?","T for ?","W for ?","Z for ?"];
+
+    let task = tasks[(Math.floor(Math.random() * tasks.length))]
+    document.getElementsByClassName("task")[0].innerHTML = task;
+    let alphabet = task[0];
+
+    //confetti
+    const run =  ()=>{
+    const end = Date.now() + 2000;
+    const colors = ["#ff0000", "#ffa500", "#ffff00", "#008000", "#0000ff", "#4b0082", "#ee82ee"];
+
+    (function frame() {
+    confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors,
+    });
+
+    confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors,
+    });
+
+    if (Date.now() < end) {
+        requestAnimationFrame(frame);
+    }
+    })();
+    }
+
+    let model, webcam, labelContainer, maxPredictions;
+    // Load the image model and setup the webcam
+    async function init() {
+        document.querySelector(".card").classList.add("hidden");//hide button
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+        
+        const container = document.getElementById("webcam-container");
+        // append elements to the DOM
+        container.innerHTML = "";
+        container.appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + 100*prediction[i].probability.toFixed(2)+"%";
+                if (prediction[i].className[0] == alphabet){
+                    labelContainer.innerHTML = classPrediction;
+                    document.getElementById("prog").value = 100*prediction[i].probability.toFixed(2);
+                }
+        }
+        const arr = ["A","B","C","D","E","G","H","K","L","M","O","P","S","T","W","Z"];
+        for(let index = 0 ; index < arr.length ; index++)
+        {
+            if(alphabet == arr[index] && prediction[index+1].probability.toFixed(2) == 1.00)
+            {
+                new Audio('win.mp3').play();
+                run();
+                loop = ()=>{webcam.stop()}
+            }
+        }
+}
+
+</script>
+
+</body>
+</html>

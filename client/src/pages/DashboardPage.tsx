@@ -4,7 +4,58 @@ import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react";
 import Navbar from "../components/common/Navbar";
 import AreaMetric from "../components/AreaMetric";
+import ICAImage from "./../assets/ICA.png"
 
+const data = [
+  {
+    "Actual Age": 1,
+    "Developmental Age": 1,
+  },
+  {
+    "Actual Age": 2,
+    "Developmental Age": 1.5,
+  },
+  {
+    "Actual Age": 3,
+    "Developmental Age": 1.5,
+  },
+  {
+    "Actual Age": 4,
+    "Developmental Age": 1.65,
+  },
+  {
+    "Actual Age": 5,
+    "Developmental Age": 2.5,
+  },
+  {
+    "Actual Age": 6,
+    "Developmental Age": 4,
+  },
+  {
+    "Actual Age": 7,
+    "Developmental Age": 5,
+  },
+  {
+    "Actual Age": 8,
+    "Developmental Age": 6,
+  },
+  {
+    "Actual Age": 9,
+    "Developmental Age": 8,
+  },
+  {
+    "Actual Age": 10,
+    "Developmental Age": 9,
+  },
+  {
+    "Actual Age": 11,
+    "Developmental Age": 10.5,
+  },
+  {
+    "Actual Age": 12,
+    "Developmental Age": 11.5,
+  },
+];
 
 function DashboardPage()
 {
@@ -47,12 +98,26 @@ function DashboardPage()
           </div>
         </div>
         <div className="grow">
-          <div className="flex flex-wrap gap-2">
-            <div className="card bg-white h-96 mt-2 grow">
-              <AreaMetric />
+          <div className="flex flex-col md:flex-row gap-2">
+            <div className="card bg-white h-96 grow">
+              <AreaMetric data={data} label="Age" sublabel=" Actual Age vs Developmental Age" />
             </div>
-            <div className="card bg-white h-96 mt-2 grow">
-              <AreaMetric />
+            <div className="flex flex-col gap-2">
+              <Link to='/analysis' className="card bg-white grow flex flex-col">
+                <div className="flex justify-between gap-4">
+                  <h1 className="font-bold">Recent EEG Analysis</h1>
+                  <h1 className="text-primary flex items-center gap-2">
+                    <div className="text-sm">View Details</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                  </h1>
+                </div>
+                <div className="grow flex justify-center items-center">
+                  <img className="w-64" src={ICAImage} alt="" />
+                </div>
+              </Link>
+              
             </div>
           </div>
           <div className="card bg-white mt-2">
@@ -76,7 +141,7 @@ function DashboardPage()
                   <h1 className="opacity-70">Subtitle</h1>
                 </div>
               </Link>
-              <Link to='/detection' className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
+              <a href='Detection.html' className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -85,7 +150,7 @@ function DashboardPage()
                   <h1 className="font-semibold uppercase">Detection</h1>
                   <h1 className="opacity-70">Subtitle</h1>
                 </div>
-              </Link>
+              </a>
               <Link to='/reactiontime' className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
@@ -100,7 +165,11 @@ function DashboardPage()
           </div>
         </div>
       </div>
-      <p className="break-words">{auth?.userdata?.token}<br /></p>
+      <br />
+      <br />
+      <br />
+      <br />
+      {/* <p className="break-words">{auth?.userdata?.token}<br /></p> */}
     </>
   )
 }

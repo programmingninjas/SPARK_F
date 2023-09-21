@@ -67,14 +67,14 @@ function ReactionTime() {
                         )
                 }
             </div>
-            <div className={`absolute top-0 left-0 h-screen -z-20 w-screen ${(reactionState==2)?"bg-primary":""}`}>
+            <div className={`absolute top-0 left-0 h-screen -z-20 w-screen`}>
                 <Canvas camera={{ fov: 35, position: [4, 4, 6] }}>
                     <OrbitControls />
                     <Environment preset="city" />
                     <Float scale={1.2} rotationIntensity={2}>
                         <mesh>
                             <boxGeometry />
-                            <meshStandardMaterial color={(reactionState==2)?0xffffff:0x6457c7} />
+                            <meshStandardMaterial color={(reactionState==2)?0xff0000:0x6457c7} />
                         </mesh>
                     </Float>
 

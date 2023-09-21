@@ -8,6 +8,7 @@ import ScalesPage from "./pages/training/ScalesPage";
 import ThreeDText from "./pages/training/ThreeDText";
 import Detection from "./pages/training/Detection";
 import ReactionTime from "./pages/training/ReactionTime";
+import AnalysisPage from "./pages/AnalysisPage";
 
 function App()
 {
@@ -23,6 +24,7 @@ function App()
             <Route path="/3dtext" element={<ThreeDText/>} />
             <Route path="/detection" element={<Detection/>} />
             <Route path="/reactiontime" element={<ReactionTime/>} />
+            <Route path="/analysis" element={<AnalysisPage/>} />
           </Routes>
         ):(
           <Routes>

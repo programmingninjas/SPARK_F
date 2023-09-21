@@ -28,6 +28,10 @@ export default {
       width: {
         '128': '32rem',
         '160': '40rem',
+      },
+      height: {
+        '128': '32rem',
+        '160': '40rem',
       }
     }
   },

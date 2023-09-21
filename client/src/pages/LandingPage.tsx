@@ -32,11 +32,11 @@ function LandingPage()
                 <PresentationControls global rotation={[0,.3,0]} polar={[0,0]} azimuth={[-2,2]} config={{mass:2,tension:400}} snap={{mass:4,tension:400}}>
                   <hemisphereLight groundColor={0x6457c7} color={0xffffff} intensity={2.5}/>
                   <Environment preset="city" />
-                  <Float rotationIntensity={1.5} >
+                  <Float speed={2} rotationIntensity={2} >
                     <primitive object={char1.scene} scale={.8} position-y={-.5}/>
                   </Float>
                 </PresentationControls>
-                <ContactShadows opacity={.4} scale={5} blur={2.4} position-y={-.7}/>
+                <ContactShadows opacity={.4} scale={5} blur={2.4} position-y={-.75}/>
               </Canvas>
             </div>
           </section>
@@ -45,25 +45,19 @@ function LandingPage()
               <div>
                 <h1 className="text-3xl md:text-5xl font-medium">Why <span className="gradient-text">Spark?</span></h1>
                 <p className="mt-8 text-md md:text-xl">
-                  Paragraph explaining the problem statement.
-                  <br />
-                  Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
+                Project Spark offers curated training and experience along with metaverse social interactions based on comprehensive monitoring, evaluation and progress tracking through EEG and cognitive drill analysis
                 </p>
               </div>
               <div>
                 <h1 className="text-3xl md:text-5xl font-medium">Our <span className="gradient-text">Objective.</span></h1>
                 <p className="mt-8 text-md md:text-xl">
-                Our Approach to solve the problem.
-                  <br />
-                  Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
+                  The objective of Project Spark is to empower individuals with cognitive disabilities by providing personalised training in order for them to live and thrive in society.
                 </p>
               </div>
               <div>
                 <h1 className="text-3xl md:text-5xl font-medium">Our <span className="gradient-text">Solution.</span></h1>
                 <p className="mt-8 text-md md:text-xl">
-                  Solution to the problem.
-                  <br />
-                  Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
+                Harnessing EEG and metaverse technology, we are building a Metaverse with GPT-driven NPCs for top-tier cognitive diagnosis and rehabilitation. Delving into ERPs and advanced deep learning, we're Pioneering Personalized interventions, reimagining the horizon of cognitive care.
                 </p>
               </div>
             </div>
@@ -73,7 +67,7 @@ function LandingPage()
                   <PresentationControls global rotation={[0,.3,0]} polar={[0,0]} azimuth={[-2,2]} config={{mass:2,tension:400}} snap={{mass:4,tension:400}}>
                     <hemisphereLight groundColor={0x6457c7} color={0xffffff} intensity={2.5}/>
                     <Environment preset="city" />
-                    <Float rotationIntensity={1} >
+                    <Float speed={2} rotationIntensity={1.5} >
                       <primitive object={char2.scene} scale={1} position-y={-.75}/>
                     </Float>
                   </PresentationControls>
