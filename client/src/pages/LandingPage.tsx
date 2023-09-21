@@ -16,12 +16,14 @@ function LandingPage()
         <main>
           <section className="flex mt-8 flex-wrap md:flex-nowrap">
             <div className="w-full p-8 lg:p-16">
-              <h1 className="text-3xl md:text-5xl font-medium">Lorem Ipsum <span className="gradient-text">Spark</span> <br/> Illum, <span className="gradient-text">assumenda!</span></h1>
-              <p className="mt-8 text-md md:text-xl">
+              {/* <h1 className="text-4xl md:text-6xl font-medium"><span className="gradient-text">SPARK</span></h1> */}
+              <h1 className="text-1xl md:text-7xl font-medium"><span className="gradient-text">SPARK</span></h1>
+              <h1 className="text-4xl md:text-4xl font-medium">Special People Achieving <br /> Remarkable Knowledge</h1>
+              {/* <p className="mt-8 text-md md:text-xl">
                 Lorem ipsum dolor sit, amet consectetur adipisicing?
                 <br />
                 Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
-              </p>
+              </p> */}
               <div className="mt-8 flex gap-4">
                 <Button type="filled">Get Started</Button>
                 <Button type="outline">Learn More</Button>
@@ -83,25 +85,25 @@ function LandingPage()
                 <h1>Children are diagnosed with down syndrome</h1>
               </div>
               <div className="bg-primary shadow-primary/30 text-light grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
-                <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
-                <p>Children are diagnosed with down syndrome</p>
+                <h1 className="text-4xl md:text-7xl font-bold">1 in 100</h1>
+                <p>Children are diagnosed with autism</p>
               </div>
               <div className="bg-secondary shadow-secondary/30 grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-cente">
-                <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
-                <p>Children are diagnosed with down syndrome</p>
+                <h1 className="text-4xl md:text-7xl font-bold">2 in 1000</h1>
+                <p>Children are diagnosed with parkinson's disease</p>
               </div>
               <div className="bg-accent shadow-accent/30 text-light grow-[5] hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
-                <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
-                <p>Children are diagnosed with down syndrome</p>
+                <h1 className="text-4xl md:text-7xl font-bold">9 in 100</h1>
+                <p>Children are diagnosed with ADHD</p>
               </div>
-              <div className="bg-primary shadow-primary/30 text-light grow-[10] hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
+              {/* <div className="bg-primary shadow-primary/30 text-light grow-[10] hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-center">
                 <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
                 <p>Children are diagnosed with down syndrome</p>
               </div>
               <div className="bg-secondary shadow-secondary/30 grow hover:grow-[15] transition-all duration-500 shadow-lg p-16 rounded-lg flex flex-col items-center justify-cente">
                 <h1 className="text-4xl md:text-7xl font-bold">1 in 1000</h1>
                 <p>Children are diagnosed with down syndrome</p>
-              </div>
+              </div> */}
             </div>
           </section>
         </main>

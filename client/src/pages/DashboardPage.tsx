@@ -96,6 +96,17 @@ function DashboardPage()
             <h1 className="font-semibold text-md">Date of Birth</h1>
             <h1 className="font-semibold text-md text-primary">{dob}</h1>
           </div>
+          <div className="card bg-white mt-2">
+            <Link to="/scales" className="card flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
+              </svg>
+              <div>
+                <h1 className="font-semibold uppercase">Scales</h1>
+                <h1 className="opacity-70">Test your scales</h1>
+              </div>
+            </Link>
+          </div>
         </div>
         <div className="grow">
           <div className="flex flex-col md:flex-row gap-2">
@@ -121,24 +132,16 @@ function DashboardPage()
             </div>
           </div>
           <div className="card bg-white mt-2">
-            <h1 className="font-semibold text-xl">Training Module or something</h1>
+            <h1 className="font-semibold text-xl">Recommended Training Modules</h1>
             <div className="flex mt-4 gap-2 flex-wrap">
-              <Link to="/scales" className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
-                </svg>
-                <div>
-                  <h1 className="font-semibold uppercase">Scale Tester</h1>
-                  <h1 className="opacity-70">Subtitle</h1>
-                </div>
-              </Link>
               <Link to='/3dtext' className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
                 </svg>
+
                 <div>
-                  <h1 className="font-semibold uppercase">3D Text</h1>
-                  <h1 className="opacity-70">Subtitle</h1>
+                  <h1 className="font-semibold uppercase">3D Alphabets</h1>
+                  <h1 className="opacity-70">Learn Letters of the English Alphabet in 3D</h1>
                 </div>
               </Link>
               <a href='Detection.html' className="card w-64 flex flex-col justify-between h-40 grow bg-primary text-light transition-all hover:grow-[2] duration-300 hover:z-20 shadow-xl hover:shadow-primary/40 hover:bg-accent">

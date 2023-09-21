@@ -1,9 +1,11 @@
 import  { useState } from 'react'
 import Button from '../../components/common/Button'
 import Navbar from '../../components/common/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 function ScalesPage()
 {
+    const navigator = useNavigate();
     const possibleAnswers = ["yes","no"] as const;
     type answerType = typeof possibleAnswers[number] | undefined;
     const [answers,setAnswers] = useState<answerType[]>([]);
@@ -23,6 +25,18 @@ function ScalesPage()
             prev[index] = value;
             return [...prev];
         })
+    }
+
+    function Submit()
+    {
+        for(let i = 0 ; i < questions.length ; i ++)
+        {
+            if(answers[i] != 'yes' && answers[i] != 'no')
+            {
+                return;
+            }
+        }
+        navigator("/dashboard");
     }
 
     return (
@@ -53,7 +67,7 @@ function ScalesPage()
                         )
                     })}
                     <div className='bg-light rounded-xl p-8 flex gap-4'>
-                        <Button className='grow' type='filled'>Submit</Button>
+                        <Button onClick={Submit} className='grow' type='filled'>Submit</Button>
                         <Button onClick={()=>{setAnswers([])}} className='grow' type='outline'>Reset</Button>
                     </div>
                 </div>
