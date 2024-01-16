@@ -14,7 +14,7 @@ function ReactionTime() {
     const [reactionState,setReactionState] = useState(0);//0 - inactive, 1-active, 2-pressable , 3-results
     const [resultText,setResultText] = useState("");
 
-    const timeout = useRef(0);
+    const timeout = useRef<any>(0);
     const pressTime = useRef(0);
 
     function start()

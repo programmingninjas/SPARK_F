@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/common/Navbar'
+import * as tmImage from '@teachablemachine/image';
+import { confetti } from 'tsparticles-confetti';
 
 function Detection() {
 
@@ -65,6 +67,7 @@ function Detection() {
         window.requestAnimationFrame(loop);
         
         const container = document.getElementById("webcam-container");
+        if(!container)return;
         // append elements to the DOM
         container.innerHTML = "";
         container.appendChild(webcam.canvas);
@@ -74,7 +77,7 @@ function Detection() {
         }
     }
 
-    async function loop() {
+    let loop:any = async ()=> {
         webcam.update(); // update the webcam frame
         await predict();
         window.requestAnimationFrame(loop);
@@ -88,7 +91,9 @@ function Detection() {
                 prediction[i].className + ": " + 100*prediction[i].probability.toFixed(2)+"%";
                 if (prediction[i].className[0] == alphabet){
                     labelContainer.innerHTML = classPrediction;
-                    document.getElementById("prog").value = 100*prediction[i].probability.toFixed(2);
+                    let prog:any = document.getElementById("prog");
+                    if(prog)
+                      prog.value = 100*prediction[i].probability.toFixed(2);
                 }
         }
         const arr = ["A","B","C","D","E","G","H","K","L","M","O","P","S","T","W","Z"];
@@ -105,9 +110,9 @@ function Detection() {
 
   return (
     <div className='flex flex-col h-screen'>
-      <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.9.3/tsparticles.confetti.bundle.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+      {/* <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.9.3/tsparticles.confetti.bundle.min.js"></script> */}
+      {/* <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script> */}
+      {/* <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script> */}
       <Navbar/>
       <div className='grow flex justify-center items-center'>
         <div className="card bg-white">
