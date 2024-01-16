@@ -10,13 +10,18 @@ function Detection() {
     let tasks = ["A for ?","B for ?","C for ?","D for ?","E for ?","G for ?","H for ?","K for ?","L for ?","M for ?","O for ?","P for ?","S for ?","T for ?","W for ?","Z for ?"];
 
     const [task,setTask] = useState("");
+    const [alphabet, setAlphabet] = useState('');
+    const [progressValue, setProgressValue] = useState(0);
 
-    let alphabet:string;
     
-    useEffect(()=>{
-      setTask(tasks[(Math.floor(Math.random() * tasks.length))]);
-      alphabet = task[0];
-    },[])
+    useEffect(() => {
+      if (!task){
+      setTask(() => {
+        const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
+        setAlphabet(randomTask[0]);
+        return randomTask;
+      });}
+    }, [tasks]);
 
     //confetti
     const run =  ()=>{
@@ -49,6 +54,7 @@ function Detection() {
     let model:any, webcam:any, labelContainer:any, maxPredictions:any;
     // Load the image model and setup the webcam
     async function init() {
+        document.querySelector('.card')?.classList.add("hidden");
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
 
@@ -89,11 +95,10 @@ function Detection() {
         for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
                 prediction[i].className + ": " + 100*prediction[i].probability.toFixed(2)+"%";
+                console.log(alphabet)
                 if (prediction[i].className[0] == alphabet){
                     labelContainer.innerHTML = classPrediction;
-                    let prog:any = document.getElementById("prog");
-                    if(prog)
-                      prog.value = 100*prediction[i].probability.toFixed(2);
+                    setProgressValue(100 * prediction[i].probability.toFixed(2));
                 }
         }
         const arr = ["A","B","C","D","E","G","H","K","L","M","O","P","S","T","W","Z"];
@@ -104,6 +109,8 @@ function Detection() {
                 new Audio('win.mp3').play();
                 run();
                 loop = ()=>{webcam.stop()}
+                setTask('');
+                document.querySelector('.card')?.classList.remove("hidden");
             }
         }
 }
@@ -124,7 +131,7 @@ function Detection() {
               </div>
           </div>
           <div id="label-container"></div>
-          <progress id="prog" max="100" value="0"></progress>
+          <progress id="prog" max="100" value={progressValue}></progress>
         </div>
       </div>
     </div>
