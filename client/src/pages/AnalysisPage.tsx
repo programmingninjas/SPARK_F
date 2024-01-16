@@ -1,4 +1,3 @@
-import React from 'react'
 import Navbar from '../components/common/Navbar'
 import EventPlot from '../assets/EventPlot.png'
 import Epoch from '../assets/Epoch.png'

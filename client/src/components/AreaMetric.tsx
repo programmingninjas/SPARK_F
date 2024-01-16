@@ -1,6 +1,4 @@
 import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
-import { label } from "three/examples/jsm/nodes/Nodes.js";
-
 
 type AreaMetricPropsType = {
   data:{[key: string]: number}[],

@@ -8,7 +8,6 @@ import {
 } from "@react-three/drei";
 import Button from "../../components/common/Button";
 import { useRef, useState } from "react";
-import { div } from "three/examples/jsm/nodes/Nodes.js";
 
 function ReactionTime() {
 
