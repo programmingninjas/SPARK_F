@@ -10,7 +10,7 @@ function Navbar()
 
     return (
         <nav className="md:container md:mx-auto flex justify-between p-8">
-            <div className="flex items-center">PROJECT_SPARK</div>
+            <div className="flex items-center"><img src='logo.png' style={{filter:'invert(1)',width:'20%'}}/></div>
             <div className="flex gap-1 md:gap-4">
                 {
                     auth?.isAuthorized?(

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Navbar from '../../components/common/Navbar'
 import * as tmImage from '@teachablemachine/image';
 import { confetti } from 'tsparticles-confetti';
+import '../../detection.css';
 
 function Detection() {
 
@@ -122,7 +123,7 @@ function Detection() {
       {/* <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script> */}
       <Navbar/>
       <div className='grow flex justify-center items-center'>
-        <div className="card bg-white">
+        <div className="detection-card bg-white">
           <div className="task">{task}</div>
           <button type="button" onClick={init}>START</button>
           <div id="webcam-container">
