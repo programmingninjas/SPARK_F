@@ -44,14 +44,14 @@ function ScalesPage()
             <Navbar/>
             <div className="max-w-4xl mx-auto">
                 <section className="flex mt-8 flex-wrap md:flex-nowrap">
-                    <div className="w-full p-8 lg:p-16">
+                    {/* <div className="w-full p-8 lg:p-16">
                         <h1 className="text-3xl md:text-5xl font-medium">Lorem Ipsum <span className="gradient-text">Spark</span> <br/> Illum, <span className="gradient-text">assumenda!</span></h1>
                         <p className="mt-8 text-md md:text-xl">
                         Lorem ipsum dolor sit, amet consectetur adipisicing?
                         <br />
                         Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
                         </p>
-                    </div>
+                    </div> */}
                 </section>
                 <div className='max-w-4xl mx-auto flex flex-col gap-4'>
                     {questions.map((value,index)=>{
