@@ -71,6 +71,19 @@ function DashboardPage()
     }
   }
 
+  async function ass()
+  {
+    let response = await auth?.APIFunctions.GetRequest("/scale/result/six_to_ten",true);
+    if(response.status == 200)
+    {
+      console.log(response.data);
+    }
+  }
+
+  useEffect(()=>{
+    ass();
+  },[])
+
   useEffect(()=>{
     getDob();
   },[])

@@ -14,7 +14,7 @@ const getScales = asyncHandler( async (req,res) => {
 // @route Post /api/scale
 // @access Private
 const setScale = asyncHandler( async (req,res) => {
-    let results = JSON.parse(req.body.results)
+    let results = req.body.results
     if(results.length==0){
         res.status(400)
         throw new Error("Kindly fill the form properly")
@@ -25,7 +25,16 @@ const setScale = asyncHandler( async (req,res) => {
     res.status(200).json(sr)
 })
 
+// @desc  Get scale result
+// @route Get /api/scale/result/:month
+// @access Public
+const getScaleResult = asyncHandler( async (req,res) => {
+    const scaleResult = await ScaleResults.findOne({user:req.user.id})
+    res.status(200).json(scaleResult[req.params['month']])
+})
+
 module.exports = {
     getScales,
-    setScale
+    setScale,
+    getScaleResult
 }
