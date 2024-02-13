@@ -1,6 +1,7 @@
 import React, { useState , useContext, useEffect } from "react";
 import axios from '../axios';
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type UserdataType = {
     token:string,
@@ -94,7 +95,9 @@ export function AuthProvier(props:{children:React.ReactNode})
             console.log(response);
             if(response.status == 201)
             {
-                alert("Account Created TODO Toast Here");
+                toast.success("Account Created Successfully", {
+                    position: "bottom-right",
+                });
                 navigator('/login');
                 return true;
             }
@@ -156,7 +159,10 @@ export function AuthProvier(props:{children:React.ReactNode})
 
     function HandleErrors(e:any):AuthResponseType
     {
-        console.log(e);
+        console.error(e);
+        toast.error(e.response.data.message, {
+            position: "bottom-right",
+        });
         return e.response;
     }
 

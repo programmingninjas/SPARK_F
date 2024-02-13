@@ -9,12 +9,14 @@ import ThreeDText from "./pages/training/ThreeDText";
 import Detection from "./pages/training/Detection";
 import ReactionTime from "./pages/training/ReactionTime";
 import AnalysisPage from "./pages/AnalysisPage";
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function App()
 {
   const auth = useAuth();
   return (
     <>
+      <ToastContainer />
       {
         auth?.isAuthorized?(
           <Routes>
