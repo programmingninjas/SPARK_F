@@ -72,7 +72,6 @@ export function AuthProvier(props:{children:React.ReactNode})
         {
             const response:AuthResponseType = await PostRequest("/user/login",{email,password},false);
             
-            console.log(response);
             if(response.status == 201)
             {
                 setUserdata(response.data);
@@ -92,7 +91,6 @@ export function AuthProvier(props:{children:React.ReactNode})
         try
         {
             const response:AuthResponseType = await PostRequest("/user",{email,password,dob,name},false);
-            console.log(response);
             if(response.status == 201)
             {
                 toast.success("Account Created Successfully", {

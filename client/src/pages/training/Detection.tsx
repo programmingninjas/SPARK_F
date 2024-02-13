@@ -96,7 +96,6 @@ function Detection() {
         for (let i = 0; i < maxPredictions; i++) {
             const classPrediction =
                 prediction[i].className + ": " + 100*prediction[i].probability.toFixed(2)+"%";
-                console.log(alphabet)
                 if (prediction[i].className[0] == alphabet){
                     labelContainer.innerHTML = classPrediction;
                     setProgressValue(100 * prediction[i].probability.toFixed(2));

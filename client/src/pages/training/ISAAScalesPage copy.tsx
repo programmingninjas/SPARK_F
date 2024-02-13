@@ -5,7 +5,7 @@ import Navbar from '../../components/common/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function AgeScalesPage()
+export default function ISAAScalesPage()
 {
     const navigator = useNavigate();
     const possibleAnswers = ["yes","no"] as const;
@@ -146,9 +146,9 @@ export default function AgeScalesPage()
             <div className="max-w-4xl mx-auto">
                 <section className="mt-8">
                     <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                        Developmental Age <span className="gradient-text">Scale</span>
+                        ISAA Scale <span className="gradient-text">Evaluation</span>
                     </h1>
-                    <p className='mt-6 text-justify text-xl'>This is to evaluate the developmental age scale of your ward.</p>
+                    <p className='mt-6 text-justify text-xl'>This is to evaluate the ISAA scale of your ward.</p>
                 </section>
                 <div className='max-w-4xl mx-auto flex flex-col gap-4'>
                     {questions.map((value,index)=>{

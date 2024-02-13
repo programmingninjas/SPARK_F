@@ -9,7 +9,6 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { useEffect , useRef, useState } from "react";
-import fontURL from "../../assets/fonts/helvetiker_regular.typeface.json"
 const material = new THREE.MeshNormalMaterial();
 
 function ThreeDText()
@@ -90,7 +89,7 @@ function ThreeDText()
                     <Environment preset="city" />
                     <Float scale={1.2} rotationIntensity={0.4}>
                         <group ref={groupRef}>
-                            <Text3D material={material} font={{...fontURL}} size={0.75} height={0.2} curveSegments={12} bevelEnabled bevelThickness={0.02} bevelSize={0.02} bevelOffset={0} bevelSegments={5}>
+                            <Text3D material={material} font='/fonts/helvetiker_regular.typeface.json' size={0.75} height={0.2} curveSegments={12} bevelEnabled bevelThickness={0.02} bevelSize={0.02} bevelOffset={0} bevelSegments={5}>
                                 {text}
                             </Text3D>
                         </group>
