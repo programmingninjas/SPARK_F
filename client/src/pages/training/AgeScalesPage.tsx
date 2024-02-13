@@ -4,7 +4,7 @@ import Button from '../../components/common/Button'
 import Navbar from '../../components/common/Navbar';
 import { useNavigate } from 'react-router-dom';
 
-function ScalesPage()
+export default function AgeScalesPage()
 {
     const navigator = useNavigate();
     const possibleAnswers = ["yes","no"] as const;
@@ -168,5 +168,3 @@ function ScalesPage()
         </>
     )
 }
-
-export default ScalesPage

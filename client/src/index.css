@@ -31,7 +31,11 @@ body
 }
 .card
 {
-  @apply p-4 rounded-xl shadow-lg hover:-translate-y-1 duration-300 hover:shadow-xl transition-all;
+  @apply rounded-xl shadow-lg duration-300 hover:shadow-xl transition-all;
+}
+.card:not(.bg-primary)
+{
+  @apply bg-white;
 }
 .card .card
 {
