@@ -78,11 +78,13 @@ export default function ISAAScalesPage() {
                                 <h1 className='text-xl'>{(index + 1) + ". " + value}</h1>
                                 {questions[value].map((value, idx) => {
                                     return (
-                                        <div key={idx} className="flex mt-4 gap-4 flex-col md:flex-row">
+                                        <div key={idx} className='mt-12'>
                                             <h1 className='text-xl'>{(idx + 1) + ". " + value}</h1>
-                                            {possibleAnswers.map((value, index2) => {
-                                                return <button key={index2} onClick={() => { setAnswer(index, value) }} className={`capitalize hover:scale-105 active:scale-95 duration-200 grow p-2 rounded md:p-4 transition-all ${(answers[index] == value) ? "bg-primary text-white" : "text-primary outline outline-1 outline-primary"}`}>{value}</button>
-                                            })}
+                                            <div className="flex mt-4 gap-4 flex-col md:flex-row">
+                                                {possibleAnswers.map((value, index2) => {
+                                                    return <button key={index2} onClick={() => { setAnswer(index, value) }} className={`capitalize hover:scale-105 active:scale-95 duration-200 grow p-2 rounded md:p-4 transition-all ${(answers[index] == value) ? "bg-primary text-white" : "text-primary outline outline-1 outline-primary"}`}>{value}</button>
+                                                })}
+                                            </div>
                                         </div>
                                     )
                                 })}
