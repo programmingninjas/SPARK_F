@@ -29,7 +29,7 @@ const setScale = asyncHandler( async (req,res) => {
 // @route Get /api/scale/result/:month
 // @access Public
 const getScaleResult = asyncHandler( async (req,res) => {
-    const scaleResult = await ScaleResults.findOne({user:req.user.id})
+    const scaleResult = await ScaleResults.findOne({user:req.query.user})
     res.status(200).json(scaleResult[req.params['month']])
 })
 

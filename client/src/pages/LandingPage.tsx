@@ -59,7 +59,7 @@ function LandingPage()
               <div>
                 <h1 className="text-3xl md:text-5xl font-medium">Our <span className="gradient-text">Solution.</span></h1>
                 <p className="mt-8 text-md md:text-xl">
-                Harnessing EEG and metaverse technology, we are building a Metaverse with GPT-driven NPCs for top-tier cognitive diagnosis and rehabilitation. Delving into ERPs and advanced deep learning, we're Pioneering Personalized interventions, reimagining the horizon of cognitive care.
+                Our project is an EdTech platform that assesses cognitive disabilities and offers personalized training modules for children. It provides caregivers, educators, and therapists with accessible tools to support cognitive development and track progress effectively.
                 </p>
               </div>
             </div>

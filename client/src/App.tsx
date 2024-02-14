@@ -8,6 +8,7 @@ import ThreeDText from "./pages/training/ThreeDText";
 import Detection from "./pages/training/Detection";
 import ReactionTime from "./pages/training/ReactionTime";
 import AnalysisPage from "./pages/AnalysisPage";
+import ResultPage from "./pages/ResultPage";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { ModalProvier } from "./context/ModalContext";
@@ -26,6 +27,7 @@ function App()
               <Route path="/*" element={<LandingPage/>}/>
               <Route path="/dashboard" element={<DashboardPage/>} />
               <Route path="/analysis" element={<AnalysisPage/>} />
+              <Route path="/results" element={<ResultPage/>} />
               <Route path="/evaluation/agescale" element={<AgeScalesPage/>} />
               <Route path="/evaluation/isaascale" element={<ISAAScalesPage/>} />
               <Route path="/evaluation/reactiontime" element={<ReactionTime/>} />

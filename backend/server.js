@@ -15,6 +15,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+app.use('/api/isaa',require('./routes/isaaRoutes'))
 app.use('/api/scale',require('./routes/scaleRoutes'))
 app.use('/api/user',require('./routes/userRoutes'))
 

@@ -86,7 +86,7 @@ function DashboardPage() {
                 <div className="h-24 w-24 overflow-clip rounded-lg">
                   <img
                     className="h-full w-full object-cover"
-                    src="https://www.alleycat.org/wp-content/uploads/2019/03/FELV-cat.jpg"
+                    src="https://i.pinimg.com/originals/97/2f/1b/972f1b8aca65479e3c401b800a4bd76a.jpg"
                     alt=""
                   />
                 </div>
@@ -124,9 +124,9 @@ function DashboardPage() {
                   </svg>
                 </div>
               </div>
-              <Link className="w-full" to={"/settings"}>
+              <Link className="w-full" to={"/results"}>
                 <Button className="w-full" type="filled">
-                  Settings
+                  Results
                 </Button>
               </Link>
             </div>
@@ -135,8 +135,8 @@ function DashboardPage() {
               <h1 className="font-semibold text-md text-primary">{dob}</h1>
             </div>
             <div className="grow card p-4 flex justify-between items-center">
-              <h1 className="font-semibold text-md">Date of Birth</h1>
-              <h1 className="font-semibold text-md text-primary">{dob}</h1>
+              <h1 className="font-semibold text-md">Evaluation Status</h1>
+              <h1 className="font-semibold text-md text-primary">Pending...</h1>
             </div>
           </div>
           <div className="card p-4 bg-white h-96 w-full lg:w-160 grow">
