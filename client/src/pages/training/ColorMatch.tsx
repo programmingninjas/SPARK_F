@@ -85,12 +85,12 @@ function ColorMatch() {
                 {(show == false && win == false) || level > 5 ? (<button onClick={playAgain} className="play-again">
                     Play Again
                 </button>) : null}
-                {(show == false && win == false) ? (<p>Wrong <br />Answer</p>) : null}
+                {(show == false && win == false) ? (<p className="game-end">Wrong <br />Answer</p>) : null}
 
                 {show == false && win == true && level <= 5 ? (<button onClick={nextLevel} className="next-level">
                     Next Level
                 </button>) : null}
-                {show == false && win == true && level <= 5 ? (<p>Correct <br />Answer</p>) : null}
+                {show == false && win == true && level <= 5 ? (<p className="game-end">Correct <br />Answer</p>) : null}
 
                 {show == true ? (
                     <div className="colorContainer">
