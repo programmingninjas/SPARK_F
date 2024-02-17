@@ -5,7 +5,8 @@ import { useAuth } from "../context/AuthContext"
 function ResultPage() {
     const auth = useAuth();
     const [ageResults, setAgeResult] = useState([]);
-    const [isaaResult, setIsaaResult] = useState({});
+    //TODO Change any to the correct type
+    const [isaaResult, setIsaaResult] = useState<any>({});
     const [range, setRange] = useState("");
     const [months, setMonths] = useState(0);
     const [dob, setDob] = useState("");
@@ -160,7 +161,8 @@ function ResultPage() {
         categories.forEach(category => {
             const responses = isaaResult[category];
             console.log(responses)
-            const scoreMap = {
+            //TODO Change any to the correct type
+            const scoreMap:any = {
                 "rarely": 1,
                 "sometimes": 2,
                 "frequently": 3,
