@@ -14,31 +14,33 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ModalProvier } from "./context/ModalContext";
 import AgeScalesPage from "./pages/training/AgeScalesPage";
 import ISAAScalesPage from "./pages/training/ISAAScalesPage copy";
-function App()
-{
+import ColorMatch from "./pages/training/ColorMatch";
+function App() {
   const auth = useAuth();
   return (
     <>
       <ModalProvier>
         <ToastContainer />
         {
-          auth?.isAuthorized?(
+          auth?.isAuthorized ? (
             <Routes>
-              <Route path="/*" element={<LandingPage/>}/>
-              <Route path="/dashboard" element={<DashboardPage/>} />
-              <Route path="/analysis" element={<AnalysisPage/>} />
-              <Route path="/results" element={<ResultPage/>} />
-              <Route path="/evaluation/agescale" element={<AgeScalesPage/>} />
-              <Route path="/evaluation/isaascale" element={<ISAAScalesPage/>} />
-              <Route path="/evaluation/reactiontime" element={<ReactionTime/>} />
-              <Route path="/training/3dtext" element={<ThreeDText/>} />
-              <Route path="/training/detection" element={<Detection/>} />
+              <Route path="/*" element={<LandingPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/analysis" element={<AnalysisPage />} />
+              <Route path="/results" element={<ResultPage />} />
+              <Route path="/evaluation/agescale" element={<AgeScalesPage />} />
+              <Route path="/evaluation/isaascale" element={<ISAAScalesPage />} />
+              <Route path="/evaluation/reactiontime" element={<ReactionTime />} />
+              <Route path="/training/3dtext" element={<ThreeDText />} />
+              <Route path="/training/detection" element={<Detection />} />
+              <Route path="/training/ColorMatch" element={<ColorMatch />} />
+
             </Routes>
-          ):(
+          ) : (
             <Routes>
-              <Route path="/*" element={<LandingPage/>}/>
-              <Route path="/login" element={<LoginPage/>} />
-              <Route path="/signup" element={<SignupPage/>}/>
+              <Route path="/*" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
             </Routes>
           )
         }
