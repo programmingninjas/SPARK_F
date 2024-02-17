@@ -184,6 +184,18 @@ function DashboardPage() {
           <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/detection"}>
             Object Recognition
           </Link>
+          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
+            Color Matching
+          </Link>
+          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/memoryGame"}>
+            Memory Game
+          </Link>
+          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/shapeDetection"}>
+            Shape Detection
+          </Link>
+          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/faceExpressionDetection"}>
+            Face Expression Detection
+          </Link>
         </div>
       </section>
     </>
