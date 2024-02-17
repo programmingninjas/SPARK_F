@@ -3,34 +3,39 @@ import Navbar from "../../components/common/Navbar";
 import { confetti } from "tsparticles-confetti";
 // import Button from './Button';
 import Button from "../../components/common/Button";
+import apple from "../../assets/apple.jpg";
+// import apple from ""
+import banana from "../../assets/banana.jpg";
+import watermelon from "../../assets/watermelon.jpg";
+import mango from "../../assets/mango.jpg";
 
 const MemoryGame = () => {
-  
-    function shuffleArray(array:any) {
+  function shuffleArray(array: any) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i (inclusive)
-        [array[i], array[j]] = [array[j], array[i]]; // Swap elements at indices i and j
+      const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i (inclusive)
+      [array[i], array[j]] = [array[j], array[i]]; // Swap elements at indices i and j
     }
-}
+  }
 
   const arr: string[] = ["mango", "apple", "banana", "watermelon"];
-  shuffleArray(arr)
+  shuffleArray(arr);
 
-  let newArr:string[]=[]
+  let newArr: string[] = [];
 
-  newArr.push(arr[0])
-  newArr.push(arr[0])
-  newArr.push(arr[1])
-  newArr.push(arr[1])
-  shuffleArray(newArr)
-  var id1=newArr[0]
-  var type1=newArr[0][0]
-  var id2=newArr[1]
-  var type2=newArr[1][0]
-  var id3=newArr[2]
-  var type3=newArr[2][0]
-  var id4=newArr[3]
-  var type4=newArr[3][0]
+  newArr.push(arr[0]);
+  newArr.push(arr[0]);
+  newArr.push(arr[1]);
+  newArr.push(arr[1]);
+  shuffleArray(newArr);
+  var id1 = newArr[0];
+  // console.log("ppppp ",id1)
+  var type1 = newArr[0][0];
+  var id2 = newArr[1];
+  var type2 = newArr[1][0];
+  var id3 = newArr[2];
+  var type3 = newArr[2][0];
+  var id4 = newArr[3];
+  var type4 = newArr[3][0];
 
   // setId1(newArr[0])
   // setId2(newArr[1])
@@ -40,11 +45,28 @@ const MemoryGame = () => {
   // setType2((newArr[1])[0])
   // setType3((newArr[2])[0])
   // setType4((newArr[3])[0])
-  let count=0
+  let count = 0;
 
-  var img1='';
-  var prev='';
+  var img1 = "";
+  var prev = "";
   //   const [img2, setImg2] = useState("");
+
+  function picture(val: any) {
+    if (val == "apple") {
+      return <img className="w-[150px] h-[150px] rounded-lg" src={apple} />;
+    }
+    if (val == "mango") {
+      return <img className="w-[150px] h-[150px] rounded-lg" src={mango} />;
+    }
+    if (val == "watermelon") {
+      return (
+        <img className="w-[150px] h-[150px] rounded-lg" src={watermelon} />
+      );
+    }
+    if (val == "banana") {
+      return <img className="w-[150px] h-[150px] rounded-lg" src={banana} />;
+    }
+  }
 
   function handle(id: any, type: any) {
     // let type = e.target.className[0];
@@ -56,21 +78,20 @@ const MemoryGame = () => {
     if (img1 == "") {
       const element1 = document.getElementById(id)!;
       element1.style.transform = "perspective(1200px) rotateY(180deg)";
-      prev=id
-      img1=type
+      prev = id;
+      img1 = type;
     } else if (img1 == type) {
       const element1 = document.getElementById(id)!;
       element1.style.transform = "perspective(1200px) rotateY(180deg)";
-      count++
-      if(count==2){
-        run()
+      count++;
+      if (count == 2) {
+        run();
         const btn = document.getElementById("btn")!;
         btn.style.display = "block";
-
       }
-      console.log("yay")
-      prev=''
-      img1=''
+      console.log("yay");
+      prev = "";
+      img1 = "";
     } else {
       const element2 = document.getElementById(id)!;
       element2.style.transform = "perspective(1200px) rotateY(180deg)";
@@ -79,10 +100,9 @@ const MemoryGame = () => {
         element2.style.transform = "perspective(1200px) rotateY(0deg)";
         const element = document.getElementById(prev)!;
         element.style.transform = "perspective(1200px) rotateY(0deg)";
-        prev=''
-        img1=''
+        prev = "";
+        img1 = "";
       }, 500);
-
     }
   }
 
@@ -146,11 +166,7 @@ const MemoryGame = () => {
             style={{ transform: "translateZ(0px)" }}
             className="w-[150px] h-[150px] absolute"
           >
-            <img
-              className="w-[150px] h-[150px] rounded-lg"
-              src={`/public/${id1}.jpg`}
-              alt="Image"
-            />
+            {picture(id1)}
           </div>
           <div
             style={{ transform: "translateZ(.1px)" }}
@@ -174,11 +190,12 @@ const MemoryGame = () => {
             style={{ transform: "translateZ(0px)" }}
             className="w-[150px] h-[150px] absolute"
           >
-            <img
+            {picture(id2)}
+            {/* <img
               className="w-[150px] h-[150px] rounded-lg"
-              src={`/public/${id2}.jpg`}
+              src={apple}
               alt="Image"
-            />
+            /> */}
           </div>
           <div
             style={{ transform: "translateZ(.1px)" }}
@@ -202,11 +219,13 @@ const MemoryGame = () => {
             style={{ transform: "translateZ(0px)" }}
             className="w-[150px] h-[150px] absolute"
           >
-            <img
+            {picture(id3)}
+
+            {/* <img
               className="w-[150px] h-[150px] rounded-lg"
-              src={`/public/${id3}.jpg`}
+              src={apple}
               alt="Image"
-            />
+            /> */}
           </div>
           <div
             style={{ transform: "translateZ(.1px)" }}
@@ -230,11 +249,13 @@ const MemoryGame = () => {
             style={{ transform: "translateZ(0px)" }}
             className="w-[150px] h-[150px] absolute"
           >
-            <img
+            {picture(id4)}
+
+            {/* <img
               className="w-[150px] h-[150px] rounded-lg"
-              src={`/public/${id4}.jpg`}
+              src={apple}
               alt="Image"
-            />
+            /> */}
           </div>
           <div
             style={{ transform: "translateZ(.1px)" }}
@@ -243,9 +264,16 @@ const MemoryGame = () => {
         </div>
       </div>
 
-<div id="btn" style={{display:"none"}}>
-      <Button onClick={()=>{window.location.reload()}} type="filled">Play Again</Button>
-</div>
+      <div id="btn" style={{ display: "none" }}>
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+          type="filled"
+        >
+          Play Again
+        </Button>
+      </div>
 
       {/* <img
           id="mango1"
