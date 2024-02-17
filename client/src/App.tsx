@@ -18,6 +18,7 @@ import ColorMatch from "./pages/training/ColorMatch";
 import MemoryGame from "./pages/training/MemoryGame";
 import FaceExpressionDetection from "./pages/training/FaceExpressionDetection";
 import ShapeDetection from "./pages/training/ShapeDetection";
+import MovementSequence from "./pages/training/MovementSequence";
 function App() {
   const auth = useAuth();
   return (
@@ -40,6 +41,7 @@ function App() {
               <Route path="/training/memorygame" element={<MemoryGame/>} />
               <Route path="/training/shapedetection" element={<ShapeDetection/>} />
               <Route path="/training/faceexpressiondetection" element={<FaceExpressionDetection/>} />
+              <Route path="/training/movementsequence" element={<MovementSequence/>} />
             </Routes>
           ) : (
             <Routes>
