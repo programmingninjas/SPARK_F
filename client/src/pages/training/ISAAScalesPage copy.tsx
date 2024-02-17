@@ -41,7 +41,7 @@ export default function ISAAScalesPage() {
 
     async function submitScale() {
         let results = answers;
-        let response = await auth?.APIFunctions.PostRequest("/scale", { results }, true);
+        let response = await auth?.APIFunctions.PostRequest("/isaa", { results }, true);
         if (response.status == 200) {
             toast.success("Scale submitted successfully", {
                 position: "bottom-right",

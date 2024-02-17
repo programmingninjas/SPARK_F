@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 
-const issaSchema = mongoose.Schema(
+const isaaSchema = mongoose.Schema(
     {
         user:{
             type: mongoose.Schema.Types.ObjectId,
             required:true,
             ref:"User"
         },
+        results:{
         social_relationship_and_reciprocity:
         Array,
         emotional_responsiveness:
@@ -18,11 +19,12 @@ const issaSchema = mongoose.Schema(
         sensory_aspects:
         Array,
         cognitive_component:
-        Array,
+        Array
+        }
     },
     {
         timestamps: true,
     }
 )
 
-module.exports = mongoose.model('IsaaResults',issaSchema)
+module.exports = mongoose.model('isaaresult',isaaSchema)

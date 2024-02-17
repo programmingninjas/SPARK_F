@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const ISAA = require("../models/isaaModel")
-const IsaaResults = require("../models/isaaResults")
+const isaaresult = require("../models/isaaResults")
 
 // @desc  Get scale
 // @route Get /api/isaa
@@ -20,9 +20,8 @@ const setISAA = asyncHandler( async (req,res) => {
         res.status(400)
         throw new Error("Kindly fill the form properly")
     }
-    let scale = {user:req.user.id}
-    scale = results
-    const sr = await IsaaResults.create(scale)
+    let scale = {user:req.user.id,results}
+    const sr = await isaaresult.insertMany(scale)
     res.status(200).json(sr)
 })
 
@@ -30,7 +29,7 @@ const setISAA = asyncHandler( async (req,res) => {
 // @route Get /api/isaa/result
 // @access Public
 const getIsaaResult = asyncHandler( async (req,res) => {
-    const scaleResult = await IsaaResults.findOne({user:req.query.user})
+    const scaleResult = await isaaresult.findOne({user:req.query.user})
     res.status(200).json(scaleResult)
 })
 

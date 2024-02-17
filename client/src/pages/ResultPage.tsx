@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext"
 function ResultPage() {
     const auth = useAuth();
     const [ageResults, setAgeResult] = useState([]);
+    const [isaaResult, setIsaaResult] = useState({});
     const [range, setRange] = useState("");
     const [months, setMonths] = useState(0);
     const [dob, setDob] = useState("");
@@ -12,6 +13,7 @@ function ResultPage() {
 
     const [developmentalAge, setDevelopmentalAge] = useState(0);
     const [category, setCategory] = useState("");
+    const [autism, setAutism] = useState("");
 
     async function getUser() {
         let response = await auth?.APIFunctions.GetRequest("/user/me", true);
@@ -151,6 +153,57 @@ function ResultPage() {
         setCategory(getCategory());
     }, [developmentalAge])
 
+    function calculateAutismCategory() {
+        const categories = Object.keys(isaaResult);
+        let totalScore = 0;
+    
+        categories.forEach(category => {
+            const responses = isaaResult[category];
+            console.log(responses)
+            const scoreMap = {
+                "rarely": 1,
+                "sometimes": 2,
+                "frequently": 3,
+                "mostly": 4,
+                "always": 5
+            };
+    
+            for (let i=0;i<responses.length;i++){
+                totalScore += scoreMap[responses[i]]
+            }
+        });
+        // Determine the category based on the total score
+        let category;
+        if (totalScore >= 153) {
+            category = "Severe Autism";
+        } else if (totalScore >= 107 && totalScore < 153) {
+            category = "Moderate Autism";
+        } else if (totalScore >= 70 && totalScore < 106) {
+            category = "Mild Autism";
+        } 
+        else {
+            category = "No Autism"; 
+        }
+    
+        return category;
+    }
+
+    async function getisaaResult() {
+        let response = await auth?.APIFunctions.GetRequest("/isaa/result/", true, { user });
+        if (response.status == 200) {
+            setIsaaResult(response.data.results);
+        }
+    }
+    useEffect(() => {
+        if (!user) return;
+        getisaaResult();
+    }, [user])
+    
+    useEffect(() => {
+        if (!isaaResult) return;
+        setAutism(calculateAutismCategory());
+    }, [isaaResult])
+
 
     return (
         <>
@@ -178,7 +231,7 @@ function ResultPage() {
                 </section>
                 <div className='max-w-4xl mx-auto flex flex-col gap-4'>
                     <p className="text-4xl my-20 font-semibold">
-                        Your Child has <span className="gradient-text">Mild Autism</span>
+                        Your Child has <span className="gradient-text">{autism}</span>
                     </p>
                 </div>
                 <section className="mt-10">
