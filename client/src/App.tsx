@@ -15,6 +15,9 @@ import { ModalProvier } from "./context/ModalContext";
 import AgeScalesPage from "./pages/training/AgeScalesPage";
 import ISAAScalesPage from "./pages/training/ISAAScalesPage copy";
 import ColorMatch from "./pages/training/ColorMatch";
+import MemoryGame from "./pages/training/MemoryGame";
+import FaceExpressionDetection from "./pages/training/FaceExpressionDetection";
+import ShapeDetection from "./pages/training/ShapeDetection";
 function App() {
   const auth = useAuth();
   return (
@@ -34,7 +37,9 @@ function App() {
               <Route path="/training/3dtext" element={<ThreeDText />} />
               <Route path="/training/detection" element={<Detection />} />
               <Route path="/training/ColorMatch" element={<ColorMatch />} />
-
+              <Route path="/training/memorygame" element={<MemoryGame/>} />
+              <Route path="/training/shapedetection" element={<ShapeDetection/>} />
+              <Route path="/training/faceexpressiondetection" element={<FaceExpressionDetection/>} />
             </Routes>
           ) : (
             <Routes>
