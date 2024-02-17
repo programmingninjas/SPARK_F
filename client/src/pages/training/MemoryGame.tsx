@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import Navbar from "../../components/common/Navbar";
 import { confetti } from "tsparticles-confetti";
 // import Button from './Button';

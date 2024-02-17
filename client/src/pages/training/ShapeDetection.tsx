@@ -1,54 +1,14 @@
-import React, { useRef } from "react";
-import { confetti } from "tsparticles-confetti";
 import Navbar from "../../components/common/Navbar";
-
 // useRef
 const ShapeDetection = () => {
-  function shuffleArray(array: any) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i (inclusive)
-      [array[i], array[j]] = [array[j], array[i]]; // Swap elements at indices i and j
-    }
-  }
+  // function shuffleArray(array: any) {
+  //   for (let i = array.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i (inclusive)
+  //     [array[i], array[j]] = [array[j], array[i]]; // Swap elements at indices i and j
+  //   }
+  // }
 
-  const run = () => {
-    const end = Date.now() + 2000;
-    const colors = [
-      "#ff0000",
-      "#ffa500",
-      "#ffff00",
-      "#008000",
-      "#0000ff",
-      "#4b0082",
-      "#ee82ee",
-    ];
-
-    (function frame() {
-      confetti({
-        particleCount: 2,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: colors,
-      });
-
-      confetti({
-        particleCount: 2,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: colors,
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    })();
-  };
-
-  const array = ["sq", "rec", "circle"];
-
-  const draggableRef: any = useRef(null);
+  
 
   const handleDragStart = (e: any) => {
     // console.log("pop", draggableRef.current.id);
