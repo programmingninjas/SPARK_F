@@ -41,7 +41,7 @@ function App() {
               <Route path="/training/memorygame" element={<MemoryGame/>} />
               <Route path="/training/shapedetection" element={<ShapeDetection/>} />
               <Route path="/training/faceexpressiondetection" element={<FaceExpressionDetection/>} />
-              <Route path="/training/movementsequence" element={<MovementSequence/>} />
+              <Route path="/evaluation/movementsequence" element={<MovementSequence/>} />
             </Routes>
           ) : (
             <Routes>

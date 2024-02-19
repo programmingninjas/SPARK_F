@@ -7,12 +7,17 @@ import {
     OrbitControls,
 } from "@react-three/drei";
 import Button from "../../components/common/Button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { toast } from 'react-toastify';
+import { useAuth } from "../../context/AuthContext";
 
 function ReactionTime() {
 
+    const auth = useAuth();
+
     const [reactionState,setReactionState] = useState(0);//0 - inactive, 1-active, 2-pressable , 3-results
     const [resultText,setResultText] = useState("");
+    const [physicalResult,setPhysicalResult] = useState(0);
 
     const timeout = useRef<any>(0);
     const pressTime = useRef(0);
@@ -34,6 +39,7 @@ function ReactionTime() {
         }
         if(reactionState == 2)
         {
+            setPhysicalResult(Date.now() - pressTime.current);
             setResultText(`Your Reaction Time was ${Date.now() - pressTime.current}ms`);
         }
         setReactionState(3);
@@ -43,7 +49,24 @@ function ReactionTime() {
     {
         setReactionState(0);
     }
-
+    async function setPhysicaltime() {
+        let response = await auth?.APIFunctions.PostRequest("/physicaltime",{physicalResult},true);
+        if(response.status == 200)
+        {
+            toast.success("Time submitted successfully", {
+                position: "bottom-right",
+            });
+        }
+        else{
+            toast.error("Something went wrong", {
+                position: "bottom-right",
+            });
+        }
+    }
+    useEffect(()=>{
+        if(!physicalResult)return;
+        setPhysicaltime();
+    },[physicalResult])
     return (
         <>
             <Navbar />

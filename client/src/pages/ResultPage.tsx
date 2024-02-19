@@ -7,6 +7,7 @@ function ResultPage() {
     const [ageResults, setAgeResult] = useState([]);
     //TODO Change any to the correct type
     const [isaaResult, setIsaaResult] = useState<any>({});
+    const [physicalResult, setPhysicalResult] = useState("Good Reaction");
     const [range, setRange] = useState("");
     const [months, setMonths] = useState(0);
     const [dob, setDob] = useState("");
@@ -206,6 +207,17 @@ function ResultPage() {
         setAutism(calculateAutismCategory());
     }, [isaaResult])
 
+    async function getphysicalResult() {
+        let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
+        if (response.status == 200) {
+            setPhysicalResult(response.data.results.physicalResult);
+        }
+    }
+
+    useEffect(() => {
+        if (!user) return;
+        getphysicalResult();
+    }, [user])
 
     return (
         <>
@@ -244,7 +256,7 @@ function ResultPage() {
                 </section>
                 <div className='max-w-4xl mx-auto flex flex-col gap-4'>
                     <p className="text-4xl my-20 font-semibold">
-                        Your Child has <span className="gradient-text">Good Reaction</span>
+                        Your Child has <span className="gradient-text">{physicalResult} ms</span>
                     </p>
                 </div>
             </div>

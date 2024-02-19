@@ -1,8 +1,13 @@
+import Navbar from "../../components/common/Navbar";
 import { useEffect, useRef, useState } from "react";
 import Button from "../../components/common/Button";
-// import { confetti } from "tsparticles-confetti";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from 'react-toastify';
+
 const movementSequence = () => {
   const [reactionState, setReactionState] = useState(0);
+  const [physicalResult,setPhysicalResult] = useState(0);
+  const auth = useAuth();
   const [time, setTime] = useState(0);
   const pressTime = useRef(0);
   let solved = 0;
@@ -48,6 +53,7 @@ const movementSequence = () => {
         console.log("solved is", solved);
         if (solved == 5) {
           setTime(Date.now() - pressTime.current);
+          setPhysicalResult(Date.now() - pressTime.current)
           //   console.log(time);
           setReactionState(4);
           // setStartTime(false)
@@ -86,7 +92,28 @@ const movementSequence = () => {
     }
   }, [reactionState]);
 
+  async function setPhysicaltime() {
+    let response = await auth?.APIFunctions.PostRequest("/physicaltime",{physicalResult},true);
+    if(response.status == 200)
+    {
+        toast.success("Time submitted successfully", {
+            position: "bottom-right",
+        });
+    }
+    else{
+        toast.error("Something went wrong", {
+            position: "bottom-right",
+        });
+    }
+}
+useEffect(()=>{
+    if(!physicalResult)return;
+    setPhysicaltime();
+},[physicalResult])
+
   return (
+    <>
+    <Navbar/>
     <div className="grid place-items-center">
       <div id="cont" className="grid grid-cols-4 w-fit mb-20">
         <div
@@ -240,6 +267,7 @@ const movementSequence = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
