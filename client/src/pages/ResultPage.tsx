@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Navbar from '../components/common/Navbar';
 import { useAuth } from "../context/AuthContext"
+import Button from "../components/common/Button";
+import { Link } from "react-router-dom";
 
 function ResultPage() {
     const auth = useAuth();
@@ -139,11 +141,16 @@ function ResultPage() {
 
     useEffect(() => {
         if (!ageResults) return;
-        setDevelopmentalAge(evaluateResults(months,ageResults));
+        
+        //check of ageResults is an array
+        if (Array.isArray(ageResults)) {
+            setDevelopmentalAge(evaluateResults(months, ageResults));
+        }
+        
     }, [ageResults])
 
     function getCategory(): string {
-        if (months===developmentalAge) {
+        if (months === developmentalAge) {
             return "Actual Age";
         } else {
             return "Younger Age";
@@ -151,27 +158,26 @@ function ResultPage() {
     }
 
     useEffect(() => {
-        if(!developmentalAge)return;
+        if (!developmentalAge) return;
         setCategory(getCategory());
     }, [developmentalAge])
 
     function calculateAutismCategory() {
         const categories = Object.keys(isaaResult);
         let totalScore = 0;
-    
+
         categories.forEach(category => {
             const responses = isaaResult[category];
-            console.log(responses)
             //TODO Change any to the correct type
-            const scoreMap:any = {
+            const scoreMap: any = {
                 "rarely": 1,
                 "sometimes": 2,
                 "frequently": 3,
                 "mostly": 4,
                 "always": 5
             };
-    
-            for (let i=0;i<responses.length;i++){
+
+            for (let i = 0; i < responses.length; i++) {
                 totalScore += scoreMap[responses[i]]
             }
         });
@@ -183,25 +189,27 @@ function ResultPage() {
             category = "Moderate Autism";
         } else if (totalScore >= 70 && totalScore < 106) {
             category = "Mild Autism";
-        } 
-        else {
-            category = "No Autism"; 
         }
-    
+        else {
+            category = "No Autism";
+        }
+
         return category;
     }
 
     async function getisaaResult() {
         let response = await auth?.APIFunctions.GetRequest("/isaa/result/", true, { user });
-        if (response.status == 200) {
-            setIsaaResult(response.data.results);
+        if (response.status == 200) {;
+            if(response?.data?.results){
+                setIsaaResult(response.data.results);
+            }
         }
     }
     useEffect(() => {
         if (!user) return;
         getisaaResult();
     }, [user])
-    
+
     useEffect(() => {
         if (!isaaResult) return;
         setAutism(calculateAutismCategory());
@@ -209,7 +217,9 @@ function ResultPage() {
 
     async function getphysicalResult() {
         let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
-        if (response.status == 200) {
+        if (response.status == 200)
+        {
+            if(response?.data?.results?.physicalResult)
             setPhysicalResult(response.data.results.physicalResult);
         }
     }
@@ -222,44 +232,54 @@ function ResultPage() {
     return (
         <>
             <Navbar />
-            <div className="max-w-4xl mx-auto">
-                <section className="mt-8">
-                    <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                        Developmental Age <span className="gradient-text">Result</span>
-                    </h1>
-                    <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
-                </section>
-                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+            {
+                (developmentalAge && category && autism && physicalResult)?
+                (<div className="max-w-4xl mx-auto">
+                    <section className="mt-8">
+                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                            Developmental Age <span className="gradient-text">Result</span>
+                        </h1>
+                        <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
+                    </section>
+                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                        <p className="text-4xl mt-20 font-semibold">
+                            Your Developmental Age is <span className="gradient-text">{developmentalAge}</span>
+                        </p>
+                        <p className="text-4xl mt-12 font-semibold">
+                            Your Category is <span className="gradient-text">{category}</span>
+                        </p>
+                    </div>
+                    <section className="mt-20">
+                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                            ISAA <span className="gradient-text">Result</span>
+                        </h1>
+                        <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
+                    </section>
+                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                        <p className="text-4xl my-20 font-semibold">
+                            Your Child has <span className="gradient-text">{autism}</span>
+                        </p>
+                    </div>
+                    <section className="mt-10">
+                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                            Physical Reaction Time <span className="gradient-text">Result</span>
+                        </h1>
+                        <p className='mt-6 text-justify text-xl'>Based on the activity, Here are the results</p>
+                    </section>
+                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                        <p className="text-4xl my-20 font-semibold">
+                            Your Child has <span className="gradient-text">{physicalResult} ms</span>
+                        </p>
+                    </div>
+                </div>):(<div className="container mx-auto">
                     <p className="text-4xl mt-20 font-semibold">
-                        Your Developmental Age is <span className="gradient-text">{developmentalAge}</span>
+                        Data is not available yet
                     </p>
-                    <p className="text-4xl mt-12 font-semibold">
-                        Your Category is <span className="gradient-text">{category}</span>
-                    </p>
-                </div>
-                <section className="mt-20">
-                    <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                        ISAA <span className="gradient-text">Result</span>
-                    </h1>
-                    <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
-                </section>
-                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
-                    <p className="text-4xl my-20 font-semibold">
-                        Your Child has <span className="gradient-text">{autism}</span>
-                    </p>
-                </div>
-                <section className="mt-10">
-                    <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                        Physical Reaction Time <span className="gradient-text">Result</span>
-                    </h1>
-                    <p className='mt-6 text-justify text-xl'>Based on the activity, Here are the results</p>
-                </section>
-                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
-                    <p className="text-4xl my-20 font-semibold">
-                        Your Child has <span className="gradient-text">{physicalResult} ms</span>
-                    </p>
-                </div>
-            </div>
+                    <Link to="/dashboard">
+                        <Button className="mt-8" type={"filled"}>Go to Dashboard</Button>
+                    </Link>
+                </div>)
+            }
         </>
     )
 }
