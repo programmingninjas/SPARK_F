@@ -310,7 +310,7 @@ function DashboardPage() {
             </div>
             <div className="grow card p-4 flex justify-between items-center">
               <h1 className="font-semibold text-md">Evaluation Status</h1>
-              <h1 className="font-semibold text-md text-primary">{ evaluationStatus?"Evaluated":"Pending..." }</h1>
+              <h1 className="font-semibold text-md text-primary">Pending...</h1>
             </div>
           </div>
           <div className="card p-4 bg-white h-96 w-full lg:w-160 grow">
