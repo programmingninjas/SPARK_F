@@ -8,13 +8,11 @@ const physicalresult = require("../models/physicalModel")
 // @access Private
 const setPhysicaltime = asyncHandler( async (req,res) => {
     let results = req.body
-    console.log(results)
     if(results.length==0){
         res.status(400)
         throw new Error("Kindly fill the form properly")
     }
     let scale = {user:req.user.id,results}
-    console.log(scale)
     const sr = await physicalresult.insertMany(scale)
     res.status(200).json(sr)
 })

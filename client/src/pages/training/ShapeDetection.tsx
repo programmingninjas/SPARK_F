@@ -1,20 +1,8 @@
 import Navbar from "../../components/common/Navbar";
-// useRef
+
 const ShapeDetection = () => {
-  // function shuffleArray(array: any) {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1)); // Generate a random index between 0 and i (inclusive)
-  //     [array[i], array[j]] = [array[j], array[i]]; // Swap elements at indices i and j
-  //   }
-  // }
-
-  
-
   const handleDragStart = (e: any) => {
-    // console.log("pop", draggableRef.current.id);
     e.dataTransfer.setData("text", e.target.id);
-    // e.dataTransfer.setData("text", draggableRef.current.id);
-    // e.dataTransfer.setData("text", draggableRef2.current.id);
   };
 
   const handleDragOver = (e: any) => {
@@ -25,7 +13,6 @@ const ShapeDetection = () => {
     e.preventDefault();
     const realId = e.target.id;
     const id = e.dataTransfer.getData("text");
-    //   console.log("ooo",e.target.id ," and ",id)
     if (realId[0] == id) {
       const draggableElement = document.getElementById(id);
       e.target.appendChild(draggableElement);
@@ -50,7 +37,6 @@ const ShapeDetection = () => {
             height: "100px",
             backgroundColor: "gray",
             margin:'30px'
-            // border: "5px solid black",
           }}
         ></div>
         <div
@@ -62,8 +48,6 @@ const ShapeDetection = () => {
             height: "80px",
             backgroundColor: "gray",
             margin:'30px'
-
-            // border: "5px solid black",
           }}
         ></div>
         <div
@@ -75,7 +59,6 @@ const ShapeDetection = () => {
             height: "100px",
             backgroundColor: "gray",
             margin:'30px',
-            // border: "5px solid black",
             borderRadius:"100%"
           }}
         ></div>

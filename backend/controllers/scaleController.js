@@ -30,7 +30,9 @@ const setScale = asyncHandler( async (req,res) => {
 // @access Public
 const getScaleResult = asyncHandler( async (req,res) => {
     const scaleResult = await ScaleResults.findOne({user:req.query.user})
-    res.status(200).json(scaleResult[req.params['month']])
+    if (scaleResult != null){
+        res.status(200).json(scaleResult[req.params['month']])
+    }
 })
 
 module.exports = {

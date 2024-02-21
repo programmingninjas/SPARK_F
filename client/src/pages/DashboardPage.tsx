@@ -75,6 +75,11 @@ function DashboardPage() {
   const [category, setCategory] = useState("");
   const [range, setRange] = useState("");
 
+  function getStatus(evaluationStatus: Boolean): string {
+    let status = evaluationStatus ? ("Complete") : ("Pending...")
+    return status
+  }
+
   async function getUser() {
     let response = await auth?.APIFunctions.GetRequest("/user/me", true);
     if (response.status == 200) {
@@ -97,14 +102,14 @@ function DashboardPage() {
   useEffect(() => {
     if (!ageResults) return;
     //check if ageResults is an Array
-    if(!Array.isArray(ageResults)) return;
+    if (!Array.isArray(ageResults)) return;
     setDevelopmentalAge(evaluateResults(months, ageResults));
   }, [ageResults])
 
-  useEffect(()=>{
-    if(!months)return;
+  useEffect(() => {
+    if (!months) return;
     getEvaluationStatus();
-  },[months])
+  }, [months])
 
   useEffect(() => {
     if (!developmentalAge) return;
@@ -120,7 +125,7 @@ function DashboardPage() {
     if (response.status == 200) {
       setAgeResult(response?.data);
     }
-  } 
+  }
 
   interface MinAge {
     [minAge: string]: number;
@@ -146,7 +151,7 @@ function DashboardPage() {
     }
   }
 
-  type Response = "yes" | "no";  
+  type Response = "yes" | "no";
   function evaluateResults(age: number, results: Response[]): number {
     const countYes = results.filter(result => result === "yes").length;
     const countNo = results.filter(result => result === "no").length;
@@ -174,18 +179,17 @@ function DashboardPage() {
   }
 
   async function getEvaluationStatus() {
-    if ((months/12) <=6){
-    
+    if ((months / 12) <= 6) {
+
       let range = getMonthRange(months);
       let response = await auth?.APIFunctions.GetRequest("/scale/result/" + range, true, { user });
-      if (response?.data){
+      if (response?.data) {
         setEvaluationStatus(true);
       }
     }
-    else{
-      console.log("hihi")
+    else {
       let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
-      if (response?.data){
+      if (response?.data) {
         setEvaluationStatus(true);
       }
     }
@@ -248,7 +252,6 @@ function DashboardPage() {
     setMonths(months);
     return months;
   }
-
   return (
     <>
       <Navbar />
@@ -310,7 +313,27 @@ function DashboardPage() {
             </div>
             <div className="grow card p-4 flex justify-between items-center">
               <h1 className="font-semibold text-md">Evaluation Status</h1>
-              <h1 className="font-semibold text-md text-primary">Pending...</h1>
+              <div className="flex items-center"> {/* Wrap both text and SVG inside a container */}
+                <h1 className="font-semibold text-md mx-2 text-primary">{getStatus(evaluationStatus)}</h1>
+                {
+                  evaluationStatus ? (
+                    <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="green"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                  ):(null)
+                }
+              </div>
             </div>
           </div>
           <div className="card p-4 bg-white h-96 w-full lg:w-160 grow">
@@ -332,7 +355,7 @@ function DashboardPage() {
           </Link>
         </div>
         <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-          <span className="gradient-text">Evalulation</span> Modules.
+          <span className="gradient-text">Evaluation</span> Modules
         </h1>
         <div className="flex gap-4 flex-wrap text-light text-xl font-medium mt-8">
           {(months / 12) <= 6 ? (<>
@@ -351,46 +374,47 @@ function DashboardPage() {
         {(evaluationStatus == true) ? (
           <>
             <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-24 font-semibold">
-              <span className="gradient-text">Training</span> Modules.
+              <span className="gradient-text">Training</span> Modules
             </h1>
             <h1 className="text-md sm:text-2xl lg:text-3xl opacity-70">
               Our Recommendations
             </h1>
             <div className="flex gap-4 flex-wrap text-light text-xl font-medium mt-8">
               {
-                category == "Younger" && (months / 12) <= 6 ? (
+                (months / 12) <= 6 ? (<>
+                  {
+                    category == "Younger" ? (<>
+                      <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/3dtext"}>
+                        3D Alphabets
+                      </Link></>) : (<><Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
+                        Color Matching
+                      </Link>
+                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/shapeDetection"}>
+                          Shape Detection
+                        </Link></>)
+                  }
+                </>
+                ) : (
                   <>
-                    <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/3dtext"}>
-                      3D Alphabets
-                    </Link>
-                  </>) : (<>
-                    <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
-                      Color Matching
-                    </Link>
-                    <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/shapeDetection"}>
-                      Shape Detection
-                    </Link>
+                    {
+                      (physicalResult < 7842) ? (<>
+                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
+                          Color Matching
+                        </Link>
+                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/shapeDetection"}>
+                          Shape Detection
+                        </Link>
+                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/detection"}>
+                          Object Recognition
+                        </Link></>) : (<> <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/faceExpressionDetection"}>
+                          Face Expression Detection
+                        </Link>
+                          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/memoryGame"}>
+                            Memory Game
+                          </Link></>)
+                    }
                   </>)
               }
-              {((months / 12) >= 6 && physicalResult < 7842 ? (<>
-                <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
-                  Color Matching
-                </Link>
-                <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/shapeDetection"}>
-                  Shape Detection
-                </Link>
-                <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/detection"}>
-                  Object Recognition
-                </Link>
-              </>) : (null))}
-              {((months / 12) >= 6 && physicalResult >= 7842) ? (<>
-                <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/faceExpressionDetection"}>
-                  Face Expression Detection
-                </Link>
-                <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/memoryGame"}>
-                  Memory Game
-                </Link>
-              </>) : (null)}
             </div>
           </>
         ) : null}

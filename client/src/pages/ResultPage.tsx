@@ -9,7 +9,7 @@ function ResultPage() {
     const [ageResults, setAgeResult] = useState([]);
     //TODO Change any to the correct type
     const [isaaResult, setIsaaResult] = useState<any>({});
-    const [physicalResult, setPhysicalResult] = useState("Good Reaction");
+    const [physicalResult, setPhysicalResult] = useState("");
     const [range, setRange] = useState("");
     const [months, setMonths] = useState(0);
     const [dob, setDob] = useState("");
@@ -105,12 +105,17 @@ function ResultPage() {
     }
     async function getAgeResult() {
         let months = calculateMonths(dob);
-        let range = getMonthRange(months);
-        let response = await auth?.APIFunctions.GetRequest("/scale/result/" + range, true, { user });
+        let range = getMonthRange(months);   
         setMonths(months);
         setRange(range);
-        if (response.status == 200) {
-            setAgeResult(response.data);
+        if (months/12 <=6 ){
+            let response = await auth?.APIFunctions.GetRequest("/scale/result/" + range, true, { user });
+            if (response.status == 200) {
+                setAgeResult(response.data);
+            }
+        }
+        else{
+            return;
         }
     }
     useEffect(() => {
@@ -141,12 +146,12 @@ function ResultPage() {
 
     useEffect(() => {
         if (!ageResults) return;
-        
+
         //check of ageResults is an array
         if (Array.isArray(ageResults)) {
             setDevelopmentalAge(evaluateResults(months, ageResults));
         }
-        
+
     }, [ageResults])
 
     function getCategory(): string {
@@ -199,8 +204,9 @@ function ResultPage() {
 
     async function getisaaResult() {
         let response = await auth?.APIFunctions.GetRequest("/isaa/result/", true, { user });
-        if (response.status == 200) {;
-            if(response?.data?.results){
+        if (response.status == 200) {
+            ;
+            if (response?.data?.results) {
                 setIsaaResult(response.data.results);
             }
         }
@@ -217,10 +223,9 @@ function ResultPage() {
 
     async function getphysicalResult() {
         let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
-        if (response.status == 200)
-        {
-            if(response?.data?.results?.physicalResult)
-            setPhysicalResult(response.data.results.physicalResult);
+        if (response.status == 200) {
+            if (response?.data?.results?.physicalResult)
+                setPhysicalResult(response.data.results.physicalResult);
         }
     }
 
@@ -228,57 +233,79 @@ function ResultPage() {
         if (!user) return;
         getphysicalResult();
     }, [user])
-
     return (
         <>
             <Navbar />
             {
-                (developmentalAge && category && autism && physicalResult)?
-                (<div className="max-w-4xl mx-auto">
-                    <section className="mt-8">
-                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                            Developmental Age <span className="gradient-text">Result</span>
-                        </h1>
-                        <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
-                    </section>
-                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
-                        <p className="text-4xl mt-20 font-semibold">
-                            Your Developmental Age is <span className="gradient-text">{developmentalAge}</span>
-                        </p>
-                        <p className="text-4xl mt-12 font-semibold">
-                            Your Category is <span className="gradient-text">{category}</span>
-                        </p>
+                ((months / 12) <= 6) ? (
+                    <div className="max-w-4xl mx-auto">
+                        {(developmentalAge && category) ? (
+                            <>
+                                <section className="mt-8">
+                                    <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                                        Developmental Age <span className="gradient-text">Result</span>
+                                    </h1>
+                                    <p className='mt-6 text-justify text-xl'>Based on the questionnaire that you filled, here are the results</p>
+                                </section>
+                                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                                    <p className="text-4xl mt-20 font-semibold">
+                                        Your Developmental Age is <span className="gradient-text">{developmentalAge} months</span>
+                                    </p>
+                                    <p className="text-4xl mt-12 font-semibold">
+                                        Your Category is <span className="gradient-text">{category}</span>
+                                    </p>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="container mx-auto">
+                                <p className="text-4xl mt-20 mx-20 font-semibold">
+                                    Data is not available yet
+                                </p>
+                                <Link to="/dashboard">
+                                    <Button className="mt-8 mx-20" type={"filled"}>Go to Dashboard</Button>
+                                </Link>
+                            </div>
+                        )}
                     </div>
-                    <section className="mt-20">
-                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                            ISAA <span className="gradient-text">Result</span>
-                        </h1>
-                        <p className='mt-6 text-justify text-xl'>Based on the questionaire that you filled, Here are the results</p>
-                    </section>
-                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
-                        <p className="text-4xl my-20 font-semibold">
-                            Your Child has <span className="gradient-text">{autism}</span>
-                        </p>
+                ) : (
+                    <div className="max-w-4xl mx-auto">
+                        {(physicalResult) ? (
+                            <>
+                                <section className="mt-20">
+                                    <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                                        ISAA <span className="gradient-text">Result</span>
+                                    </h1>
+                                    <p className='mt-6 text-justify text-xl'>Based on the questionnaire that you filled, here are the results</p>
+                                </section>
+                                <div className='max-w-4xl mx-auto flex flex-col gap-4'>
+                                    <p className="text-4xl my-20 font-semibold">
+                                        Your Child has <span className="gradient-text">{autism}</span>
+                                    </p>
+                                    <section className="mt-10">
+                                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
+                                            Physical Reaction Time <span className="gradient-text">Result</span>
+                                        </h1>
+                                        <p className='mt-6 text-justify text-xl'>Based on the activity, here are the results</p>
+                                    </section>
+                                    <div className='max-w-4xl flex flex-col gap-4'>
+                                        <p className="text-4xl my-20 font-semibold">
+                                            Your Child has <span className="gradient-text">{physicalResult} ms</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="container mx-auto">
+                                <p className="text-4xl mt-20 mx-20 font-semibold">
+                                    Data is not available yet
+                                </p>
+                                <Link to="/dashboard">
+                                    <Button className="mt-8 mx-20" type={"filled"}>Go to Dashboard</Button>
+                                </Link>
+                            </div>
+                        )}
                     </div>
-                    <section className="mt-10">
-                        <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                            Physical Reaction Time <span className="gradient-text">Result</span>
-                        </h1>
-                        <p className='mt-6 text-justify text-xl'>Based on the activity, Here are the results</p>
-                    </section>
-                    <div className='max-w-4xl mx-auto flex flex-col gap-4'>
-                        <p className="text-4xl my-20 font-semibold">
-                            Your Child has <span className="gradient-text">{physicalResult} ms</span>
-                        </p>
-                    </div>
-                </div>):(<div className="container mx-auto">
-                    <p className="text-4xl mt-20 font-semibold">
-                        Data is not available yet
-                    </p>
-                    <Link to="/dashboard">
-                        <Button className="mt-8" type={"filled"}>Go to Dashboard</Button>
-                    </Link>
-                </div>)
+                )
             }
         </>
     )
