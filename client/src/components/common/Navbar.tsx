@@ -11,14 +11,14 @@ function Navbar()
 
     return (
         <nav className="md:container md:mx-auto flex justify-between p-8">
-            <div className="flex items-center invert h-16"><img className='w-full h-full object-contain' src={icon}/></div>
+            <div className="flex items-center invert"><Link to='/' className='h-10'><img className='w-full h-full object-contain' src={icon}/></Link></div>
             <div className="flex gap-1 md:gap-4">
                 {
                     auth?.isAuthorized?(
-                        (location.pathname == '/dashboard')?(
-                            <Link to='/'><Button type="filled">Landing</Button></Link>
-                        ):(
+                        (location.pathname == '/')?(
                             <Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>
+                        ):(
+                            (location.pathname == '/dashboard')?(<Link to='/trainings'><Button type="filled">Trainings</Button></Link>):(<Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>)
                         )
                     ):(
                         <>

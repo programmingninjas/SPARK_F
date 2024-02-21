@@ -19,6 +19,8 @@ import MemoryGame from "./pages/training/MemoryGame";
 import FaceExpressionDetection from "./pages/training/FaceExpressionDetection";
 import ShapeDetection from "./pages/training/ShapeDetection";
 import MovementSequence from "./pages/training/MovementSequence";
+import All from "./pages/All";
+
 function App() {
   const auth = useAuth();
   return (
@@ -42,6 +44,7 @@ function App() {
               <Route path="/training/shapedetection" element={<ShapeDetection/>} />
               <Route path="/training/faceexpressiondetection" element={<FaceExpressionDetection/>} />
               <Route path="/evaluation/movementsequence" element={<MovementSequence/>} />
+              <Route path="/trainings" element={<All/>} />
             </Routes>
           ) : (
             <Routes>
