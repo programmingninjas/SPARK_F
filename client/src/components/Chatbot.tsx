@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from "react"
+import {GoogleGenerativeAI} from "@google/generative-ai"
 
 type MessageType = {
     sender: number;
@@ -8,9 +9,11 @@ type MessageType = {
 function Chatbot()
 {
     const [input, setInput] = useState<string>('');
-    const [messages, setMessages] = useState<MessageType[]>([{sender: 0, message: 'Hello!'}, {sender: 1, message: 'Hi!'}]);
+    const [messages, setMessages] = useState<MessageType[]>([{sender: 0, message: 'Hello'}, {sender: 1, message: 'How can i help you today?'}]);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const genAI = new GoogleGenerativeAI("AIzaSyAJwu_nm12nFHykJkoyNYgKebtA548dh-s");
 
     async function SendMessage()
     {
@@ -22,10 +25,13 @@ function Chatbot()
         }
     }
 
-    function GenerateResponse(input:string)
+    async function GenerateResponse(input:string)
     {
-        //API CALL HERE
-        setMessages(prev=>[...prev, {sender: 1, message: 'I am a bot!'}]);
+        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+        const result = await model.generateContent("You are a chatbot integrated in our website 'S.P.A.R.K' which stands for Special People achieving remarkable knowledge. An EdTech website for children with down syndrome to help them learn via our recommended training modules curated by our evaluation modules to understand their current capabilties. User Prompt="+input+". Reply in 20 words");
+        const response = await result.response;
+        const text = response.text();
+        setMessages(prev=>[...prev, {sender: 1, message: text}]);
     }
 
     useEffect(()=>{
@@ -34,7 +40,7 @@ function Chatbot()
 
     return (
     <>
-        <button onClick={()=>{setIsOpen(prev=>!prev)}} className={`${isOpen?"opacity-0":""} duration-300 fixed right-4 bottom-4 z-40 p-4 bg-primary text-slate-50 rounded-full transition-all active:bg-accent active:scale-95 hover:scale-105`}>
+        <button onClick={()=>{setIsOpen(prev=>!prev)}} className={`${isOpen?"opacity-0":""} duration-300 fixed right-4 bottom-4 z-40 p-4 bg-violet-800 text-slate-50 rounded-full transition-all active:bg-accent active:scale-95 hover:scale-105`}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
             </svg>
@@ -58,7 +64,7 @@ function Chatbot()
                         {
                             messages.map((msg, i) => (
                                 <div key={i} className={`p-2 ${msg.sender === 0 ? 'text-right' : 'text-left'}`}>
-                                    <div className={`p-3 px-4 ${msg.sender === 0 ? 'bg-primary text-slate-200 rounded-br-3xl' : 'bg-slate-300 text-slate-900 rounded-bl-3xl'} rounded-full inline-block`}>
+                                    <div className={`p-3 px-4 text-justify ${msg.sender === 0 ? 'bg-primary text-slate-200 rounded-br-3xl' : 'bg-slate-300 text-slate-900 rounded-bl-3xl'} rounded-3xl inline-block`}>
                                         {msg.message}
                                     </div>
                                 </div>

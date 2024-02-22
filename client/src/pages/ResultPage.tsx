@@ -3,6 +3,7 @@ import Navbar from '../components/common/Navbar';
 import { useAuth } from "../context/AuthContext"
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
+import {GoogleGenerativeAI} from "@google/generative-ai"
 
 function ResultPage() {
     const auth = useAuth();
@@ -233,6 +234,25 @@ function ResultPage() {
         if (!user) return;
         getphysicalResult();
     }, [user])
+
+    const genAI = new GoogleGenerativeAI("AIzaSyAJwu_nm12nFHykJkoyNYgKebtA548dh-s");
+
+    async function run() {
+        // For text-only input, use the gemini-pro model
+        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+      
+        const prompt = "Write a story about a magic backpack."
+      
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+        console.log(text);
+      }
+      
+    useEffect(() => {
+        run();
+    }, [])
+
     return (
         <>
             <Navbar />
