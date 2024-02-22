@@ -20,6 +20,7 @@ import FaceExpressionDetection from "./pages/training/FaceExpressionDetection";
 import ShapeDetection from "./pages/training/ShapeDetection";
 import MovementSequence from "./pages/training/MovementSequence";
 import All from "./pages/All";
+import Chatbot from "./components/Chatbot";
 
 function App() {
   const auth = useAuth();
@@ -27,6 +28,7 @@ function App() {
     <>
       <ModalProvier>
         <ToastContainer />
+        <Chatbot />
         {
           auth?.isAuthorized ? (
             <Routes>
