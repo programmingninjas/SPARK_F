@@ -21,6 +21,7 @@ import ShapeDetection from "./pages/training/ShapeDetection";
 import MovementSequence from "./pages/training/MovementSequence";
 import All from "./pages/All";
 import Chatbot from "./components/Chatbot";
+import SocialTraining from "./pages/SocialTraining";
 
 function App() {
   const auth = useAuth();
@@ -46,7 +47,8 @@ function App() {
               <Route path="/training/shapedetection" element={<ShapeDetection/>} />
               <Route path="/training/faceexpressiondetection" element={<FaceExpressionDetection/>} />
               <Route path="/evaluation/movementsequence" element={<MovementSequence/>} />
-              <Route path="/trainings" element={<All/>} />
+              <Route path="/cognitivetraining" element={<All/>} />
+              <Route path="/socialtraining" element={<SocialTraining/>} />
             </Routes>
           ) : (
             <Routes>
