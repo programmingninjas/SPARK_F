@@ -2,12 +2,21 @@ import { ContactShadows, Environment, Float, PresentationControls, useGLTF } fro
 import Button from '../components/common/Button';
 import Navbar from '../components/common/Navbar';
 import { Canvas } from '@react-three/fiber';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage()
 {
 
   const char1 = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/bookcase-wide/model.gltf');
   const char2 = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/target-stand/model.gltf');
+  const navigate  = useNavigate();
+  function getStarted(){
+    navigate('/signup')
+  }
+  function learnMore(){
+    const section:any = document.getElementById('target');
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
 
   return (
     <>
@@ -25,8 +34,8 @@ function LandingPage()
                 Elit. Nostrum qui nihil inventore atque reprehenderit corrupti.
               </p> */}
               <div className="mt-8 flex gap-4">
-                <Button type="filled">Get Started</Button>
-                <Button type="outline">Learn More</Button>
+                <Button onClick={getStarted} type="filled">Get Started</Button>
+                <Button onClick={learnMore} type="outline">Learn More</Button>
               </div>
             </div>
             <div className="w-full">
@@ -44,7 +53,7 @@ function LandingPage()
           </section>
           <section className="flex mt-48 flex-wrap flex-row-reverse md:flex-nowrap">
             <div className="w-full p-8 lg:p-16 flex flex-col gap-48">
-              <div>
+              <div id='target'>
                 <h1 className="text-3xl md:text-5xl font-medium">Why <span className="gradient-text">Spark?</span></h1>
                 <p className="mt-8 text-md md:text-xl">
                 Project Spark offers curated training and experience along with metaverse social interactions based on comprehensive monitoring, evaluation and progress tracking through EEG and cognitive drill analysis
