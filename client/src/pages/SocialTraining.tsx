@@ -8,12 +8,12 @@ interface Video {
 }
 
 const videos: Video[] = [
-  { id: 1, title: 'Video 1', src: './videos/video1.mp4',thumbnail: "./thumbnails/image1.jpg" },
-  { id: 2, title: 'Video 2', src: './videos/video2.mp4',thumbnail: "./thumbnails/image2.jpg" },
-  { id: 3, title: 'Video 3', src: './videos/video3.mp4',thumbnail: "./thumbnails/image3.jpg" },
-  { id: 4, title: 'Video 4', src: './videos/video4.mp4',thumbnail: "./thumbnails/image4.jpg" },
-  { id: 5, title: 'Video 5', src: './videos/video5.mp4',thumbnail: "./thumbnails/image5.jpg" },
-  { id: 6, title: 'Video 6', src: './videos/video6.mp4',thumbnail: "./thumbnails/image6.jpg" },
+  { id: 1, title: 'Video 1', src: '../videos/video1.mp4',thumbnail: "../thumbnails/image1.jpg" },
+  { id: 2, title: 'Video 2', src: '../videos/video2.mp4',thumbnail: "../thumbnails/image2.jpg" },
+  { id: 3, title: 'Video 3', src: '../videos/video3.mp4',thumbnail: "../thumbnails/image3.jpg" },
+  { id: 4, title: 'Video 4', src: '../videos/video4.mp4',thumbnail: "../thumbnails/image4.jpg" },
+  { id: 5, title: 'Video 5', src: '../videos/video5.mp4',thumbnail: "../thumbnails/image5.jpg" },
+  { id: 6, title: 'Video 6', src: '../videos/video6.mp4',thumbnail: "../thumbnails/image6.jpg" },
 ];
 
 function SocialTraining() {

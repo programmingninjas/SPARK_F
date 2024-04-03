@@ -18,7 +18,14 @@ function Navbar()
                         (location.pathname == '/')?(
                             <Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>
                         ):(
-                            (location.pathname == '/dashboard')?(<><Link to='/cognitivetraining'><Button type="filled">Cognitive Training</Button></Link><Link to='/socialtraining'><Button type="filled">Social Training</Button></Link></>):(<Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>)
+                            (location.pathname == '/dashboard')?(<>
+                                <Link to='/menu'>
+                                    <Button type="filled">Training Modules</Button>
+                                </Link> 
+                                <Link to='/community'>
+                                    <Button type="filled">Community</Button>
+                                </Link> 
+                            </>):(<Link to='/dashboard'><Button type="filled">Dashboard</Button></Link>)
                         )
                     ):(
                         <>
