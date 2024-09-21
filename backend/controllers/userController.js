@@ -8,8 +8,8 @@ const bcrypt = require("bcryptjs")
 // @route POST /api/user
 // @access Public
 const registerUser = asyncHandler( async (req,res)=>{
-    const {name,email,password,dob} = req.body
-    if (!name || !email || !password || !dob){
+    const {name,email,password,dob,role} = req.body
+    if (!name || !email || !password || !dob || !role){
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -24,6 +24,7 @@ const registerUser = asyncHandler( async (req,res)=>{
         name,
         email,
         dob,
+        role,
         password:hashedPassword
     })
     if (user){
@@ -32,6 +33,7 @@ const registerUser = asyncHandler( async (req,res)=>{
             name:user.name,
             email:user.email,
             dob:user.dob,
+            role:user.role,
             token:generateToken(user._id)
         })
     }
@@ -52,6 +54,7 @@ const loginUser = asyncHandler( async (req,res)=>{
             _id:user.id,
             name:user.name,
             email:user.email,
+            role:user.role,
             token:generateToken(user._id)
         })
     }

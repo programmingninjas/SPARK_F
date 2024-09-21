@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 export default function ISAAScalesPage() {
     const navigator = useNavigate();
-    const possibleAnswers = ["rarely", "sometimes", "frequently", "mostly", "always"] as const;
+    const possibleAnswers = [0,0.5,1] as const;
     type answerType = typeof possibleAnswers[number] | undefined;
     const [answers, setAnswers] = useState<{[key:string]:answerType[]}>({});
 
@@ -15,7 +15,7 @@ export default function ISAAScalesPage() {
     const [questions, setQuestions] = useState<Record<string, string[]>>({});
 
     async function getQuestions() {
-        let response = await auth?.APIFunctions.GetRequest("/isaa", true);
+        let response = await auth?.APIFunctions.GetRequest("/dev", true);
         if (response.status == 200) {
             let result = response.data;
             delete result["_id"]
@@ -41,7 +41,7 @@ export default function ISAAScalesPage() {
 
     async function submitScale() {
         let results = answers;
-        let response = await auth?.APIFunctions.PostRequest("/isaa", { results }, true);
+        let response = await auth?.APIFunctions.PostRequest("/dev", { results }, true);
         if (response.status == 200) {
             toast.success("Scale submitted successfully", {
                 position: "bottom-right",
@@ -77,9 +77,9 @@ export default function ISAAScalesPage() {
             <div className="max-w-4xl mx-auto">
                 <section className="my-8">
                     <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-                        ISAA Scale <span className="gradient-text">Evaluation</span>
+                        Developmental <span className="gradient-text">Screening Test</span>
                     </h1>
-                    <p className='mt-6 text-justify text-xl'>This is to evaluate the ISAA scale of your ward.</p>
+                    <p className='mt-6 text-justify text-xl'>This is to evaluate the Developmental Age of your ward.</p>
                 </section>
                 <div className='max-w-4xl mx-auto flex flex-col gap-4'>
                     {Object.keys(questions).map((category, index) => {

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from "react"
-import {GoogleGenerativeAI} from "@google/generative-ai"
+import Groq from "groq-sdk";
 
 type MessageType = {
     sender: number;
@@ -9,11 +9,11 @@ type MessageType = {
 function Chatbot()
 {
     const [input, setInput] = useState<string>('');
-    const [messages, setMessages] = useState<MessageType[]>([{sender: 0, message: 'Hello'}, {sender: 1, message: 'How can i help you today?'}]);
+    const [messages, setMessages] = useState<MessageType[]>([{sender: 1, message: 'How can i help you today?'}]);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const genAI = new GoogleGenerativeAI("AIzaSyBSxXpveJAOfTa7tx7BVqs53PK46unfprM");
+    const groq = new Groq({ apiKey: "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",dangerouslyAllowBrowser: true });
 
     async function SendMessage()
     {
@@ -25,13 +25,23 @@ function Chatbot()
         }
     }
 
-    async function GenerateResponse(input:string)
-    {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-        const result = await model.generateContent("You are a chatbot integrated in our website 'S.P.A.R.K' which stands for Special People achieving remarkable knowledge. An EdTech website for children with down syndrome to help them learn via our recommended training modules curated by our evaluation modules to understand their current capabilties. User Prompt="+input+". Reply in 20 words");
-        const response = await result.response;
-        const text = response.text();
-        setMessages(prev=>[...prev, {sender: 1, message: text}]);
+    async function GenerateResponse(input: string) {
+        const result = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "system",
+                    content: "You are a chatbot named Xiaojie integrated in our website 'S.P.A.R.K' which stands for Special People achieving remarkable knowledge. An EdTech website for children with Cognitive disabilities.Talk nicely with the kids.",
+                },
+                {
+                    role: "user",
+                    content: input,
+                }
+            ],
+            model: "llama3-8b-8192",
+        });
+
+        const responseText = result.choices[0]?.message?.content || "Sorry, I couldn't understand that.";
+        setMessages(prev => [...prev, { sender: 1, message: responseText }]);
     }
 
     useEffect(()=>{
@@ -48,9 +58,9 @@ function Chatbot()
         <div className={`fixed right-0 bottom-0 z-40 duration-300 p-4 ${isOpen?"":"translate-y-full"}`}>
             <div className="flex flex-col justify-between rounded-3xl bg-gradient-to-tr from-primary to-accent shadow-xl overflow-clip h-128 max-w-sm w-96">
                 <div className="p-4 text-slate-100 flex items-center justify-between gap-4">
-                    <img className="w-16 aspect-square rounded-full" src="https://i.pinimg.com/originals/97/2f/1b/972f1b8aca65479e3c401b800a4bd76a.jpg" alt="" />
+                    <img className="w-16 aspect-square rounded-full" src="https://xiaojiecat.com/wp-content/uploads/2024/04/Layer-3-150x150.png" alt="pfp" />
                     <div className="grow">
-                        <h1 className="text-lg font-bold">Chatbot</h1>
+                        <h1 className="text-lg font-bold">Xiaojie</h1>
                         <p className="text-xs opacity-70">Online</p>
                     </div>
                     <div>
@@ -59,7 +69,7 @@ function Chatbot()
                         </svg>
                     </div>
                 </div>
-                <div className="grow bg-slate-100 m-1 rounded-[20px] divide-y-2 overflow-clip flex flex-col">
+                <div className="grow overflow-y-auto bg-slate-100 m-1 rounded-[20px] divide-y-2 flex flex-col">
                     <div ref={scrollRef} className="grow overflow-y-auto">
                         {
                             messages.map((msg, i) => (

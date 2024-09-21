@@ -1,10 +1,7 @@
-import { Link } from "react-router-dom";
-import Button from "../components/common/Button"
 import { useAuth } from "../context/AuthContext"
 import { useEffect, useState } from "react";
 import Navbar from "../components/common/Navbar";
 import AreaMetric from "../components/AreaMetric";
-import ICAImage from "./../assets/ICA.png"
 import { useModal } from "../context/ModalContext";
 import DashboardTabs from "../components/DashboardTabs";
 
@@ -62,22 +59,13 @@ const data = [
 function DashboardPage() {
   const auth = useAuth();
   const [dob, setDob] = useState("");
+  const [role, setRole] = useState("");
   const modal = useModal();
 
   const gap = "gap-4";
 
-  const [ageResults, setAgeResult] = useState([]);
-  const [evaluationStatus, setEvaluationStatus] = useState(false);
-  const [physicalResult, setPhysicalResult] = useState(0);
-  const [developmentalAge, setDevelopmentalAge] = useState(0);
-  const [months, setMonths] = useState(0);
-  const [user, setUser] = useState("");
-
-  const [category, setCategory] = useState("");
-  const [range, setRange] = useState("");
-
-  function getStatus(evaluationStatus: Boolean): string {
-    let status = evaluationStatus ? ("Complete") : ("Pending...")
+  function getStatus(): string {
+    let status = false ? ("Complete") : ("Pending...")
     return status
   }
 
@@ -85,174 +73,13 @@ function DashboardPage() {
     let response = await auth?.APIFunctions.GetRequest("/user/me", true);
     if (response.status == 200) {
       setDob(response?.data?.dob);
-      setUser(response?.data?._id);
+      setRole(response?.data?.role);
     }
   }
 
   useEffect(() => {
     getUser();
   }, [])
-
-  useEffect(() => {
-    if (!user) return;
-    calculateMonths(dob);
-    getphysicalResult();
-    getAgeResult();
-  }, [user])
-
-  useEffect(() => {
-    if (!ageResults) return;
-    //check if ageResults is an Array
-    if (!Array.isArray(ageResults)) return;
-    setDevelopmentalAge(evaluateResults(months, ageResults));
-  }, [ageResults])
-
-  useEffect(() => {
-    if (!months) return;
-    getEvaluationStatus();
-  }, [months])
-
-  useEffect(() => {
-    if (!developmentalAge) return;
-    setCategory(getCategory());
-  }, [developmentalAge])
-
-  async function getAgeResult() {
-    let months = calculateMonths(dob);
-    let range = getMonthRange(months);
-    let response = await auth?.APIFunctions.GetRequest("/scale/result/" + range, true, { user });
-    setMonths(months);
-    setRange(range);
-    if (response.status == 200) {
-      setAgeResult(response?.data);
-    }
-  }
-
-  interface MinAge {
-    [minAge: string]: number;
-  }
-  const minAge: MinAge = {
-    'birth_to_five': 0,
-    'six_to_ten': 6,
-    'eleven_to_fifteen': 11,
-    'sixteen_to_twenty': 16,
-    'twentyone_to_twentyfive': 21,
-    'twentysix_to_thirty': 26,
-    'thirtyone_to_thirtyfive': 31,
-    'thirtysix_to_forty': 36,
-    'fortyone_to_fiftynine': 41,
-    'sixty_to_seventyone': 60
-  };
-
-  function getCategory(): string {
-    if (months === developmentalAge) {
-      return "Actual Age";
-    } else {
-      return "Younger Age";
-    }
-  }
-
-  type Response = "yes" | "no";
-  function evaluateResults(age: number, results: Response[]): number {
-    const countYes = results.filter(result => result === "yes").length;
-    const countNo = results.filter(result => result === "no").length;
-
-    const totalResponses = results.length;
-    const halfResponses = totalResponses / 2;
-
-    if (countYes === totalResponses - 1 && countNo === 1) {
-      // All but one response is "yes"
-      return age;
-    } else if (countYes >= halfResponses) {
-      // Half or more responses are "yes"
-      return minAge[range] + 2;
-    } else {
-      // More than half responses are "no"
-      return minAge[range];
-    }
-  }
-
-  async function getphysicalResult() {
-    let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
-    if (response.status == 200) {
-      setPhysicalResult(response?.data?.results.physicalResult);
-    }
-  }
-
-  async function getEvaluationStatus() {
-    if ((months / 12) <= 6) {
-
-      let range = getMonthRange(months);
-      let response = await auth?.APIFunctions.GetRequest("/scale/result/" + range, true, { user });
-      if (response?.data) {
-        setEvaluationStatus(true);
-      }
-    }
-    else {
-      let response = await auth?.APIFunctions.GetRequest("/physicaltime", true, { user });
-      if (response?.data) {
-        setEvaluationStatus(true);
-      }
-    }
-  }
-
-  interface MonthRange {
-    [months: number]: string;
-  }
-  function getMonthRange(months: number): string {
-    const monthsRange: MonthRange = {
-      0: 'birth_to_five',
-      6: 'six_to_ten',
-      11: 'eleven_to_fifteen',
-      16: 'sixteen_to_twenty',
-      21: 'twentyone_to_twentyfive',
-      26: 'twentysix_to_thirty',
-      31: 'thirtyone_to_thirtyfive',
-      36: 'thirtysix_to_forty',
-      41: 'fortyone_to_fiftynine',
-      60: 'sixty_to_seventyone'
-    };
-
-    let monthRange = '';
-    for (const rangeStart in monthsRange) {
-      if (months >= parseInt(rangeStart)) {
-        monthRange = monthsRange[rangeStart];
-      } else {
-        break;
-      }
-    }
-
-    return monthRange;
-  }
-
-
-  function calculateMonths(dob: string) {
-    const dateRegex: RegExp = /^(\d{4})-(\d{2})-(\d{2})$/;
-    const match: RegExpMatchArray | null = dob.match(dateRegex);
-
-    if (!match) {
-      throw new Error('Invalid date format. Please provide date in the format YYYY-MM-DD.');
-    }
-
-    const [, yearStr, monthStr, dayStr]: string[] = match;
-    const day: number = parseInt(dayStr, 10);
-    const month: number = parseInt(monthStr, 10);
-    const year: number = parseInt(yearStr, 10);
-
-    const today: Date = new Date();
-    const birthDate: Date = new Date(year, month - 1, day); // month is 0-indexed in JavaScript Dates
-
-    // Calculate the difference in months
-    let months = (today.getFullYear() - birthDate.getFullYear()) * 12 + (today.getMonth() - birthDate.getMonth());
-
-    // If the current day of the month is before the birth day, decrement months by 1
-    if (today.getDate() < birthDate.getDate()) {
-      months--;
-    }
-
-    setMonths(months);
-    return months;
-  }
   return (
     <>
       <Navbar />
@@ -264,7 +91,7 @@ function DashboardPage() {
                 <div className="h-24 w-24 overflow-clip rounded-lg">
                   <img
                     className="h-full w-full object-cover"
-                    src="https://i.pinimg.com/originals/97/2f/1b/972f1b8aca65479e3c401b800a4bd76a.jpg"
+                    src="https://xiaojiecat.com/wp-content/uploads/2024/04/Layer-3-150x150.png"
                     alt=""
                   />
                 </div>
@@ -302,11 +129,6 @@ function DashboardPage() {
                   </svg>
                 </div>
               </div>
-              <Link className="w-full" to={"/results"}>
-                <Button className="w-full" type="filled">
-                  Results
-                </Button>
-              </Link>
             </div>
             <div className="grow card p-4 flex justify-between items-center">
               <h1 className="font-semibold text-md">Date of Birth</h1>
@@ -315,120 +137,95 @@ function DashboardPage() {
             <div className="grow card p-4 flex justify-between items-center">
               <h1 className="font-semibold text-md">Evaluation Status</h1>
               <div className="flex items-center"> {/* Wrap both text and SVG inside a container */}
-                <h1 className="font-semibold text-md mx-2 text-primary">{getStatus(evaluationStatus)}</h1>
-                {
-                  evaluationStatus ? (
-                    <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="green"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                  ):(null)
-                }
+                <h1 className="font-semibold text-md mx-2 text-primary">{getStatus()}</h1>
               </div>
             </div>
           </div>
           <div className="card p-4 bg-white h-96 w-full lg:w-160 grow">
             <AreaMetric data={data} label="Age" sublabel=" Actual Age vs Developmental Age" />
           </div>
-          <Link to='/analysis' className="card p-4 bg-white grow flex flex-col">
-            <div className="flex justify-between gap-4">
-              <h1 className="font-bold">Recent EEG Analysis</h1>
-              <h1 className="text-primary flex items-center gap-2">
-                <div className="text-sm">View Details</div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </h1>
+          <div className="flex flex-wrap gap-4">
+            <div className="card p-4 bg-white grow flex flex-col">
+              <div className="flex justify-between gap-4">
+                <h1 className="font-bold">Developmental Age</h1>
+                <h1 className="text-primary flex items-center gap-2">
+                  <div className="text-sm cursor-pointer">View Reports</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </h1>
+              </div>
+              <div className="grow flex justify-center items-center">
+                <div className="text-2xl">11.5</div> {/* Example Date */}
+              </div>
             </div>
-            <div className="grow flex justify-center items-center">
-              <img className="w-64" src={ICAImage} alt="" />
+
+            <div className="card p-4 bg-white grow flex flex-col">
+              <div className="flex justify-between gap-4">
+                <h1 className="font-bold">Social Age</h1>
+                <h1 className="text-primary flex items-center gap-2">
+                  <div className="text-sm cursor-pointer">View Reports</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </h1>
+              </div>
+              <div className="grow flex justify-center items-center">
+                <div className="text-2xl">10</div> {/* Example Height */}
+              </div>
             </div>
-          </Link>
+
+            <div className="card p-4 bg-white grow flex flex-col">
+              <div className="flex justify-between gap-4">
+                <h1 className="font-bold">IQ</h1>
+                <h1 className="text-primary flex items-center gap-2">
+                  <div className="text-sm cursor-pointer">View Results</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                    />
+                  </svg>
+                </h1>
+              </div>
+              <div className="grow flex justify-center items-center">
+                <div className="text-2xl">70</div> {/* Example Weight */}
+              </div>
+            </div>
+          </div>
+
         </div>
-
-        <DashboardTabs evaulationStatus={evaluationStatus} months={months} category={category} physicalResult={physicalResult}/>
-
-        {/* <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-12 font-semibold">
-          <span className="gradient-text">Evaluation</span> Modules
-        </h1>
-        <div className="flex gap-4 flex-wrap text-light text-xl font-medium mt-8">
-          {(months / 12) <= 6 ? (<>
-            <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/evaluation/agescale"}>
-              Developmental Age Scale
-            </Link>
-          </>) : (<>
-            <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/evaluation/isaascale"}>
-              IQ Test
-            </Link>
-            <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/evaluation/movementsequence"}>
-              Physical Reaction Time
-            </Link>
-            <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/evaluation/isaascale"}>
-              ISAA Scale
-            </Link>
-            <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/evaluation/movementsequence"}>
-              Down Syndrome Test
-            </Link>
-          </>)}
-        </div>
-        {(evaluationStatus == true) ? (
-          <>
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl mt-24 font-semibold">
-              <span className="gradient-text">Training</span> Modules
-            </h1>
-            <h1 className="text-md sm:text-2xl lg:text-3xl opacity-70">
-              Our Recommendations
-            </h1>
-            <div className="flex gap-4 flex-wrap text-light text-xl font-medium mt-8">
-              {
-                (months / 12) <= 6 ? (<>
-                  {
-                    category == "Younger" ? (<>
-                      <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/3dtext"}>
-                        3D Alphabets
-                      </Link></>) : (<><Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
-                        Color Matching
-                      </Link>
-                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/aquarium"}>
-                          Sea-quence
-                        </Link></>)
-                  }
-                </>
-                ) : (
-                  <>
-                    {
-                      (physicalResult < 7842) ? (<>
-                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/colorMatch"}>
-                          Color Matching
-                        </Link>
-                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/aquarium"}>
-                          Sea-quence
-                        </Link>
-                        <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/detection"}>
-                          Object Recognition
-                        </Link></>) : (<> <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/crocodile"}>
-                          Number Comparision
-                        </Link>
-                          <Link className="card bg-primary w-96 grow hover:grow-[2] grid text-center py-16" to={"/training/memoryGame"}>
-                            Memory Game
-                          </Link></>)
-                    }
-                  </>)
-              }
-            </div>
-          </>
-        ) : null} */}
-
+        <DashboardTabs role={role}/>
       </section>
     </>
   )

@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema({
         type:String,
         required: [true,"Please add a DOB"]
     },
+    role:{
+        type:String,
+        required: [true,"Please add a role"]
+    }
 },{
     timestamps: true
 })

@@ -7,6 +7,7 @@ type UserdataType = {
     token:string,
     email:string,
     name:string,
+    role:string
 } | null;
 
 type AuthContextType = {
@@ -15,7 +16,7 @@ type AuthContextType = {
     APIFunctions:
     {
         LogIn:(email:string,password:string)=>Promise<boolean>,
-        SignUp:(email:string,password:string,name:string,dob:string)=>Promise<boolean>,
+        SignUp:(email:string,password:string,name:string,dob:string,role:string)=>Promise<boolean>,
         SignOut:()=>void,
         PostRequest:(url:string,body:any,needsToken:boolean,params?:any)=>Promise<any>,
         GetRequest:(url:string,needsToken:boolean,params?:any)=>Promise<any>
@@ -38,7 +39,7 @@ export function AuthProvier(props:{children:React.ReactNode})
 {
     const navigator = useNavigate();
     const [isAuthorized,setIsAuthorized] = useState(false);
-    const [userdata,setUserdata] = useState<UserdataType>({name:"",token:"",email:""});
+    const [userdata,setUserdata] = useState<UserdataType>({name:"",token:"",email:"",role:""});
 
     useEffect(()=>{
         let local = localStorage.getItem("userdata");
@@ -86,11 +87,11 @@ export function AuthProvier(props:{children:React.ReactNode})
         }
         return false;
     }
-    async function SignUp(email:string,password:string,name:string,dob:string):Promise<boolean>
+    async function SignUp(email:string,password:string,name:string,dob:string,role:string):Promise<boolean>
     {
         try
         {
-            const response:AuthResponseType = await PostRequest("/user",{email,password,dob,name},false);
+            const response:AuthResponseType = await PostRequest("/user",{email,password,dob,name,role},false);
             if(response.status == 201)
             {
                 toast.success("Account Created Successfully", {

@@ -47,8 +47,8 @@ function App()
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/analysis" element={<AnalysisPage />} />
               <Route path="/results" element={<ResultPage />} />
-              <Route path="/evaluation/agescale" element={<AgeScalesPage />} />
-              <Route path="/evaluation/isaascale" element={<ISAAScalesPage />} />
+              <Route path="/evaluation/socialmaturity" element={<AgeScalesPage />} />
+              <Route path="/evaluation/developmentaltest" element={<ISAAScalesPage />} />
               <Route path="/evaluation/reactiontime" element={<ReactionTime />} />
               <Route path="/training/3dtext" element={<ThreeDText />} />
               <Route path="/training/detection" element={<Detection />} />

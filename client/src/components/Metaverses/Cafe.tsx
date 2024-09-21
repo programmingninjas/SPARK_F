@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimationMixer, Object3D } from "three";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { useSpeech } from "react-text-to-speech";
-import {GoogleGenerativeAI} from "@google/generative-ai"
+import Groq from "groq-sdk";
 
 function Cafe(props:{micActive?:boolean})
 {
@@ -64,41 +64,49 @@ function Cafe(props:{micActive?:boolean})
         start, // Function to start the speech or put it in queue
         //pause, // Function to pause the speech
         //stop, // Function to stop the speech or remove it from queue
-      } = useSpeech({ text: tts,lang:"en-IN",
-        voiceURI:"Microsoft Heera - English (India)",});
-    const genAI = new GoogleGenerativeAI("AIzaSyBSxXpveJAOfTa7tx7BVqs53PK46unfprM");
+      } = useSpeech({ text: tts,lang:"en-IN" });
+        const groq = new Groq({ apiKey: "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",dangerouslyAllowBrowser: true });
 
-    useEffect(()=>{
-        console.log(props.micActive)
-        if(props.micActive)
-        {
-            //Mic active
-            resetTranscript();
-            SpeechRecognition.startListening();
-        }
-        else
-        {
-            PlayAnimation();
-            SpeechRecognition.stopListening();
 
-            async function GenerateResponse(input:string)
-            {
-                const model = genAI.getGenerativeModel({ model: "gemini-pro"});
-                const result = await model.generateContent("You are akanksha a friendly and patient waitress at a family restaurant. A young child with Down Syndrome is sitting at a table with their family. You want to make sure the child feels comfortable and understood, so you use simple language, repeat things if necessary, and give them time to process and respond. Don't include roles and instructions in your response! Only include your dialogue \n Child's Input: "+input);
-                const response = result.response;
-                const text = response.text();
-                return text;
+        useEffect(() => {
+            console.log(props.micActive);
+            if (props.micActive) {
+                // Mic active
+                resetTranscript();
+                SpeechRecognition.startListening();
+            } else {
+                PlayAnimation();
+                SpeechRecognition.stopListening();
+    
+                async function GenerateResponse(input: string) {
+                    const result = await groq.chat.completions.create({
+                        messages: [
+                            {
+                                role: "system",
+                                content: "You are a friendly and patient waiter at a family restaurant. A young child with cognitive disability is sitting at a table. You want to make sure the child feels comfortable and understood, so you use simple language, repeat things if necessary, and give them time to process and respond. Don't include roles, instructions and markdowns. Only include your dialogue and stick to the scene.",
+
+                            },
+                            {
+                                role: "user",
+                                content: input,
+                            }
+                        ],
+                        model: "llama-3.1-70b-versatile",
+                    });
+    
+                    const response = result.choices[0]?.message?.content || "Sorry, I couldn't understand that.";
+                    return response;
+                }
+    
+                // PROCESS TRANSCRIPT TODO
+                console.log(transcript);
+                if (!transcript) return;
+                GenerateResponse(transcript).then((response) => {
+                    console.log(response);
+                    setTTS(response);  // Assuming setTTS is a function used to handle the text-to-speech output
+                });
             }
-
-            //PROCESS TRANSCRIPT TODO
-            console.log(transcript)
-            if (!transcript) return;
-            GenerateResponse(transcript).then((response)=>{
-                console.log(response)
-                setTTS(response);
-            })
-        }
-    },[props.micActive])
+        }, [props.micActive]);
 
     useEffect(()=>{
         if(tts){
